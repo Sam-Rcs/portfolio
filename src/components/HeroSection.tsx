@@ -83,18 +83,18 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="flex flex-col items-center justify-center gap-6 relative"
         >
-          <div className="flex flex-col sm:flex-row items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 w-full max-w-sm md:max-w-none mx-auto">
             <MagneticButton>
-              <a href="#projects" className="px-8 py-4 bg-transparent border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-none hover:bg-[var(--color-primary)] hover:text-black transition-all duration-300 font-bold tracking-widest uppercase neon-border whitespace-nowrap">
+              <a href="#projects" className="w-full md:w-auto px-6 py-4 md:px-8 text-sm md:text-base bg-transparent border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-none hover:bg-[var(--color-primary)] hover:text-black transition-all duration-300 font-bold tracking-widest uppercase neon-border whitespace-nowrap text-center">
                 Inspect my questionable decisions
               </a>
             </MagneticButton>
             
-            <div className="flex gap-4 items-center h-full">
+            <div className="flex flex-row gap-4 items-center w-full md:w-auto justify-center h-[56px]">
               <MagneticButton>
                 <button 
                   onClick={() => setIsContactOpen(!isContactOpen)}
-                  className="px-8 py-4 h-[56px] bg-white text-black font-bold tracking-widest uppercase hover:bg-gray-200 transition-all duration-300 z-20 whitespace-nowrap"
+                  className="flex-1 md:flex-none px-6 py-4 md:px-8 h-full bg-white text-black font-bold tracking-widest uppercase hover:bg-gray-200 transition-all duration-300 z-20 whitespace-nowrap"
                 >
                   Contact Me {isContactOpen ? '▲' : '▼'}
                 </button>
@@ -105,7 +105,7 @@ export default function HeroSection() {
                   <a 
                     href="/resume.pdf" 
                     download="Sameer_Khan_Resume.pdf"
-                    className="flex items-center justify-center w-[56px] h-[56px] bg-[#111] border border-gray-700 text-gray-300 hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all duration-300 rounded-none z-20"
+                    className="flex items-center justify-center w-[56px] h-full bg-[#111] border border-gray-700 text-gray-300 hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all duration-300 rounded-none z-20"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                   </a>

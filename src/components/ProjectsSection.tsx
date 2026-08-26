@@ -172,14 +172,14 @@ export default function ProjectsSection() {
                         </motion.div>
                       )}
 
-                      {/* Frontend/Mobile Node (Pops Left) */}
+                      {/* Frontend/Mobile Node (Pops Left on Desktop, Bottom Left on Mobile) */}
                       {(project.details.frontend || project.details.mobile) && (
                         <motion.div
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0 }}
                           transition={{ type: "spring", damping: 15, delay: 0.05 }}
-                          className="absolute top-1/2 -left-8 -translate-y-1/2 z-40 bg-black/90 border border-[var(--color-secondary)] shadow-[0_0_20px_rgba(255,0,255,0.15)] p-3 rounded-xl flex items-center gap-2 w-auto min-w-[140px] backdrop-blur-md"
+                          className="absolute bottom-4 left-4 md:bottom-auto md:top-1/2 md:-left-8 md:-translate-y-1/2 z-40 bg-black/90 border border-[var(--color-secondary)] shadow-[0_0_20px_rgba(255,0,255,0.15)] p-3 rounded-xl flex items-center gap-2 w-auto min-w-[130px] backdrop-blur-md"
                         >
                           {project.details.mobile ? <Smartphone className="w-4 h-4 text-[var(--color-secondary)] shrink-0" /> : <Code2 className="w-4 h-4 text-[var(--color-secondary)] shrink-0" />}
                           <div className="flex flex-col">
@@ -190,14 +190,14 @@ export default function ProjectsSection() {
                         </motion.div>
                       )}
 
-                      {/* Database Node (Pops Right) */}
+                      {/* Database Node (Pops Right on Desktop, Bottom Right on Mobile) */}
                       {project.details.database && (
                         <motion.div
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0 }}
                           transition={{ type: "spring", damping: 15, delay: 0.1 }}
-                          className="absolute top-1/2 -right-8 -translate-y-1/2 z-40 bg-black/90 border border-gray-500 shadow-[0_0_20px_rgba(156,163,175,0.15)] p-3 rounded-xl flex items-center gap-2 w-auto min-w-[140px] backdrop-blur-md"
+                          className="absolute bottom-4 right-4 md:bottom-auto md:top-1/2 md:-right-8 md:-translate-y-1/2 z-40 bg-black/90 border border-gray-500 shadow-[0_0_20px_rgba(156,163,175,0.15)] p-3 rounded-xl flex items-center gap-2 w-auto min-w-[130px] backdrop-blur-md"
                         >
                           <Database className="w-4 h-4 text-gray-400 shrink-0" />
                           <div className="flex flex-col">
