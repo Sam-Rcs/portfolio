@@ -9,6 +9,10 @@ export default function HeroSection() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [subtitle, setSubtitle] = useState("!#X@...92");
+  
+  // Secret Easter Egg State
+  const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
+  const [secretRevealed, setSecretRevealed] = useState(false);
 
   useEffect(() => {
     // Scramble decryption effect
@@ -37,6 +41,18 @@ export default function HeroSection() {
     }
   };
 
+  // Easter egg handlers
+  const handleSecretPress = () => {
+    const timer = setTimeout(() => {
+      setSecretRevealed(true);
+    }, 1500); // 1.5 seconds hold to reveal
+    setPressTimer(timer);
+  };
+
+  const handleSecretRelease = () => {
+    if (pressTimer) clearTimeout(pressTimer);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--color-background)]">
       {/* Dynamic Background Glows */}
@@ -60,10 +76,41 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.2 }}
         >
           <h1 
-            onClick={handleNameClick}
-            className={`text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white cursor-pointer select-none transition-transform active:scale-95 ${clickCount > 3 ? 'animate-pulse text-red-500' : ''}`}
+            className={`text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white select-none transition-transform active:scale-95 flex items-center justify-center ${clickCount > 3 ? 'animate-pulse text-red-500' : ''}`}
           >
-            SAMEER <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">KHAN</span>
+            <span 
+              onPointerDown={handleSecretPress}
+              onPointerUp={handleSecretRelease}
+              onPointerLeave={handleSecretRelease}
+              className="cursor-pointer"
+            >
+              S
+            </span>
+            <AnimatePresence mode="wait">
+              {secretRevealed ? (
+                <motion.span
+                  key="seenam"
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="text-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
+                >
+                  EENAM <span className="animate-pulse">❤️</span>
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="ameerkhan"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                  transition={{ duration: 0.3 }}
+                  onClick={handleNameClick}
+                  className="cursor-pointer"
+                >
+                  AMEER <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">KHAN</span>
+                </motion.span>
+              )}
+            </AnimatePresence>
           </h1>
         </motion.div>
 
