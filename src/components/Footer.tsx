@@ -20,26 +20,16 @@ export default function Footer() {
 
           <div className="flex items-center gap-6">
             <a
-              href="[YOUR LINKEDIN URL]"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:sameer6306khan@gmail.com"
               className="font-mono text-xs text-[var(--color-foreground-muted)] hover:text-[var(--color-accent)] transition-colors"
             >
-              LinkedIn
+              Email: sameer6306khan@gmail.com
             </a>
             <a
-              href="[YOUR GITHUB URL]"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:7985835954"
               className="font-mono text-xs text-[var(--color-foreground-muted)] hover:text-[var(--color-accent)] transition-colors"
             >
-              GitHub
-            </a>
-            <a
-              href="mailto:[YOUR EMAIL]"
-              className="font-mono text-xs text-[var(--color-foreground-muted)] hover:text-[var(--color-accent)] transition-colors"
-            >
-              Email
+              Phone: +91 7985835954
             </a>
           </div>
         </div>

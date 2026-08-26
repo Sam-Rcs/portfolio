@@ -28,7 +28,7 @@ export default function ContactSection() {
           {/* CTA Buttons */}
           <div className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 reveal ${visible ? "visible" : ""} reveal-delay-1`}>
             <a
-              href="mailto:[YOUR EMAIL]"
+              href="mailto:sameer6306khan@gmail.com"
               className="btn-primary justify-center"
             >
               <svg
@@ -47,10 +47,8 @@ export default function ContactSection() {
               Send an Email
             </a>
             <a
-              href="[YOUR RESUME/CV LINK]"
+              href="tel:7985835954"
               className="btn-secondary justify-center"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <svg
                 width="16"
@@ -62,13 +60,9 @@ export default function ContactSection() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <path d="M14 2v6h6" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <line x1="10" y1="9" x2="8" y2="9" />
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
-              Download Resume
+              Call +91 7985835954
             </a>
           </div>
 
@@ -78,21 +72,18 @@ export default function ContactSection() {
               {[
                 {
                   label: "Email",
-                  value: "[YOUR EMAIL]",
-                  href: "mailto:[YOUR EMAIL]",
-                  icon: "✉",
+                  value: "sameer6306khan@gmail.com",
+                  href: "mailto:sameer6306khan@gmail.com",
+                },
+                {
+                  label: "Phone",
+                  value: "+91 7985835954",
+                  href: "tel:7985835954",
                 },
                 {
                   label: "LinkedIn",
-                  value: "[YOUR LINKEDIN]",
-                  href: "[YOUR LINKEDIN URL]",
-                  icon: "in",
-                },
-                {
-                  label: "GitHub",
-                  value: "[YOUR GITHUB]",
-                  href: "[YOUR GITHUB URL]",
-                  icon: "</>",
+                  value: "Sameer Khan on LinkedIn",
+                  href: "https://www.linkedin.com",
                 },
               ].map((link) => (
                 <a
@@ -118,7 +109,7 @@ export default function ContactSection() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]">
               <div className="status-dot" />
               <span className="font-mono text-xs text-[var(--color-foreground-secondary)]">
-                Open to senior engineering & consulting roles
+                Open to Full-Stack Engineering, Team Lead & Mobile Development Roles
               </span>
             </div>
           </div>

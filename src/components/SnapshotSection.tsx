@@ -16,17 +16,14 @@ export default function SnapshotSection() {
           {/* Left — Statement */}
           <div className={`md:col-span-5 reveal ${visible ? "visible" : ""} reveal-delay-1`}>
             <h2 className="text-[var(--color-foreground)] mb-6">
-              Engineering systems that solve{" "}
+              Engineering full-stack systems that{" "}
               <span className="text-[var(--color-accent)]">
-                business problems.
+                deliver real impact.
               </span>
             </h2>
             <div className="w-12 h-px bg-[var(--color-accent)] mb-6" />
             <p className="text-[var(--color-foreground-secondary)] text-lg leading-relaxed">
-              I&apos;m a senior full-stack engineer who operates at the
-              intersection of software engineering and business strategy.
-              I don&apos;t just build features — I analyze problems, architect
-              solutions, and deliver systems that drive operational outcomes.
+              I&apos;m a Full Stack Developer & Team Lead at RCS Tec with a proven track record of architecting scalable web applications, real-time banking modules, live SaaS platforms, and multi-platform mobile apps (iOS & Android).
             </p>
           </div>
 
@@ -36,18 +33,18 @@ export default function SnapshotSection() {
               {[
                 {
                   marker: "01",
-                  title: "Technical Depth",
-                  desc: "Full-stack engineering across frontend architectures, backend services, databases, APIs, and cloud infrastructure. I build production systems, not prototypes.",
+                  title: "Full-Stack & Mobile Depth",
+                  desc: "Expertise across Java, Spring Boot, Node.js, React, React Native (iOS & Android), MySQL, and MongoDB. Building end-to-end web and mobile products.",
                 },
                 {
                   marker: "02",
-                  title: "System Thinking",
-                  desc: "Every component exists within a larger system. I design with dependencies, scalability, security, and maintainability in mind — not in isolation.",
+                  title: "Team Leadership & Code Quality",
+                  desc: "Leading developer teams at RCS Tec, managing code reviews, architecting multi-module systems, and enforcing high engineering & security standards.",
                 },
                 {
                   marker: "03",
-                  title: "Business Acumen",
-                  desc: "I translate stakeholder requirements into technical specifications, map business processes to software workflows, and measure engineering decisions by their business impact.",
+                  title: "Live Production Systems",
+                  desc: "Track record of delivering production software — from solo apps like CoachKonnets to live Hotel & Godown management systems, Amagi payments, and banking microservices.",
                 },
               ].map((item) => (
                 <div key={item.marker} className="card p-6 group">

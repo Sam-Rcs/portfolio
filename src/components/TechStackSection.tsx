@@ -4,30 +4,31 @@ import { useReveal } from "@/hooks/useReveal";
 
 const TECH_STACK: Record<string, { items: string[]; highlight?: boolean }> = {
   Frontend: {
-    items: ["[ADD — e.g., React]", "[ADD — e.g., Next.js]", "[ADD — e.g., TypeScript]", "[ADD — e.g., Tailwind CSS]"],
+    items: ["React", "Next.js", "HTML5", "CSS3", "JavaScript"],
     highlight: true,
   },
   Backend: {
-    items: ["[ADD — e.g., Node.js]", "[ADD — e.g., Express]", "[ADD — e.g., Python]"],
+    items: ["Spring Boot", "Java", "Node.js", "Express", "REST APIs", "Microservices"],
+    highlight: true,
+  },
+  "Mobile Apps": {
+    items: ["React Native", "iOS", "Android", "Mobile Barcode Scanner"],
     highlight: true,
   },
   Database: {
-    items: ["[ADD — e.g., PostgreSQL]", "[ADD — e.g., MongoDB]", "[ADD — e.g., Redis]"],
+    items: ["MySQL", "MongoDB"],
   },
-  "Cloud & Infrastructure": {
-    items: ["[ADD — e.g., AWS]", "[ADD — e.g., Docker]", "[ADD — e.g., Vercel]"],
+  "Real-Time & Sync": {
+    items: ["WebSockets", "Event-Driven", "Real-Time Chat"],
   },
-  DevOps: {
-    items: ["[ADD — e.g., GitHub Actions]", "[ADD — e.g., Docker]", "[ADD — e.g., Terraform]"],
-  },
-  Testing: {
-    items: ["[ADD — e.g., Jest]", "[ADD — e.g., Cypress]", "[ADD — e.g., Playwright]"],
+  "Security & Access": {
+    items: ["RBAC", "JWT Security", "Approval Workflows"],
   },
   Architecture: {
-    items: ["REST APIs", "Microservices", "Event-Driven", "Monolith-First"],
+    items: ["Microservices", "Multi-Module Architecture", "Tiered SaaS"],
   },
-  Tools: {
-    items: ["[ADD — e.g., Git]", "[ADD — e.g., Figma]", "[ADD — e.g., Jira]", "[ADD — e.g., VS Code]"],
+  "Tools & Process": {
+    items: ["Git", "Jira", "Team Leadership", "Code Reviews"],
   },
 };
 
