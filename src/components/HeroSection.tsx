@@ -45,7 +45,7 @@ export default function HeroSection() {
   const handleSecretPress = () => {
     const timer = setTimeout(() => {
       setSecretRevealed(true);
-    }, 1500); // 1.5 seconds hold to reveal
+    }, 5000); // 5 seconds hold to reveal
     setPressTimer(timer);
   };
 
