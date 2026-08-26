@@ -1,169 +1,65 @@
 "use client";
 
-import { useReveal } from "@/hooks/useReveal";
-
-const EXPERIENCE = [
-  {
-    company: "RCS Tec",
-    role: "Full Stack Developer & Team Lead",
-    duration: "Apr 2024 — Present",
-    current: true,
-    companyDesc: "Enterprise software development and digital transformation solutions.",
-    scope: "Leading developer team, handling architecture, code reviews, and production deployments for banking, payments, and multi-module enterprise tools.",
-    responsibilities: [
-      "Led developer team in building the IG Tool multi-module enterprise platform (Invoicing, Asset Tracking, GRN)",
-      "Engineered high-security payment processing platform (Amagi Payment System) with real-time WebSocket chat and live analytics",
-      "Developed core banking approval workflows and RBAC security for NT Nation Trust Bank, Sri Lanka",
-      "Built B2B procurement features for Zomato Hyperpure using Spring Boot and React",
-      "Enhanced logistics asset tracking systems (AMS / SIMS) for DHL, fixing critical runtime bugs and performance bottlenecks",
-      "Architected internal financial tracking and corporate expense approval module",
-    ],
-    impact: [
-      "Delivered 6+ major enterprise systems with zero high-severity production defects",
-      "Accelerated approval processing and workflow turnarounds across client organizations",
-    ],
-    systems: ["Amagi Payment System", "NT Nation Trust Bank", "IG Tool (Multi-Module)", "DHL (AMS/SIMS)", "Zomato Hyperpure", "Expense Module"],
-  },
-  {
-    company: "Independent & Solo Developer",
-    role: "Full-Stack & Mobile Software Engineer",
-    duration: "2023 — Present",
-    current: false,
-    companyDesc: "Full-cycle independent software design, web development, and mobile application engineering.",
-    scope: "100% single-handed ownership of full-fledged web and cross-platform mobile applications from DB design to live production deployment.",
-    responsibilities: [
-      "Single-handedly architected and developed CoachKonnets — a full-fledged web platform for coaching management, client scheduling, and interaction",
-      "Built and deployed Live Hotel Management System software for real-time room reservations, front-desk check-in, and automated billing",
-      "Architected multi-platform Warehouse & Godown Management Software available on Web, iOS, and Android mobile apps with barcode scanning",
-    ],
-    impact: [
-      "100% solo execution from initial schema design to final server deployment",
-      "Successfully launched live production applications operating on Web, iOS, and Android",
-    ],
-    systems: ["CoachKonnets Web App", "Live Hotel Management Software", "Godown Software (Web, iOS & Android)"],
-  },
-];
+import { motion } from "framer-motion";
 
 export default function ExperienceSection() {
-  const [ref, visible] = useReveal();
-
   return (
-    <section id="experience" className="section-padding relative">
-      <div className="section-container" ref={ref}>
-        <div className={`reveal ${visible ? "visible" : ""}`}>
-          <span className="section-number">07 — Experience</span>
-          <h2 className="text-[var(--color-foreground)] mt-4 mb-4">
-            Career Progression
+    <section id="experience" className="py-24 bg-[#050505] relative">
+      <div className="max-w-4xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
+            OPERATIONAL <span className="text-[var(--color-secondary)]">HISTORY</span>
           </h2>
-          <p className="text-[var(--color-foreground-secondary)] max-w-xl text-lg mb-16">
-            From implementation to ownership — each role expanding scope,
-            responsibility, and business impact.
-          </p>
-        </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-secondary)] to-transparent" />
+        </motion.div>
 
-        <div className="relative pl-6 md:pl-8">
-          {/* Timeline line */}
-          <div className="timeline-line" />
-
-          <div className="space-y-12">
-            {EXPERIENCE.map((exp, i) => (
-              <div
-                key={i}
-                className={`relative reveal ${visible ? "visible" : ""} reveal-delay-${Math.min(i + 1, 4)}`}
-              >
-                {/* Timeline dot */}
-                <div className={`timeline-dot ${!exp.current ? "!bg-[var(--color-border)]" : ""}`} />
-
-                <div className="card p-6 md:p-8 ml-4">
-                  {/* Header */}
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-1">
-                        <h3 className="text-lg font-medium text-[var(--color-foreground)]">
-                          {exp.role}
-                        </h3>
-                        {exp.current && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[var(--color-status-green-muted)] rounded text-xs text-[var(--color-status-green)] font-mono">
-                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-status-green)]" />
-                            Current
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-[var(--color-accent)] text-sm font-medium">
-                        {exp.company}
-                      </p>
-                      <p className="text-xs text-[var(--color-foreground-muted)] mt-1">
-                        {exp.companyDesc}
-                      </p>
-                    </div>
-                    <span className="font-mono text-xs text-[var(--color-foreground-muted)] shrink-0">
-                      {exp.duration}
-                    </span>
-                  </div>
-
-                  {/* Scope */}
-                  <p className="text-sm text-[var(--color-foreground-secondary)] mb-4 italic">
-                    {exp.scope}
-                  </p>
-
-                  {/* Responsibilities */}
-                  <div className="mb-4">
-                    <h4 className="font-mono text-[10px] tracking-widest text-[var(--color-foreground-muted)] uppercase mb-2">
-                      Key Contributions
-                    </h4>
-                    <ul className="space-y-1.5">
-                      {exp.responsibilities.map((item, j) => (
-                        <li
-                          key={j}
-                          className="text-sm text-[var(--color-foreground-secondary)] flex items-start gap-2"
-                        >
-                          <span className="text-[var(--color-foreground-muted)] shrink-0 mt-1 text-[10px]">
-                            ▸
-                          </span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Impact & Systems */}
-                  <div className="flex flex-col sm:flex-row gap-6 pt-4 border-t border-[var(--color-border)]">
-                    <div className="flex-1">
-                      <h4 className="font-mono text-[10px] tracking-widest text-[var(--color-accent)] uppercase mb-2">
-                        Impact
-                      </h4>
-                      <ul className="space-y-1">
-                        {exp.impact.map((item, j) => (
-                          <li
-                            key={j}
-                            className="text-xs text-[var(--color-foreground-secondary)] flex items-start gap-1.5"
-                          >
-                            <span className="text-[var(--color-accent)] shrink-0">↗</span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-mono text-[10px] tracking-widest text-[var(--color-accent)] uppercase mb-2">
-                        Systems Owned
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {exp.systems.map((sys, j) => (
-                          <span key={j} className="tag">
-                            {sys}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+        <div className="relative border-l-2 border-[var(--color-primary)] border-opacity-30 ml-4 md:ml-0">
+          {/* Experience Item */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 ml-8 md:ml-12 relative"
+          >
+            <div className="absolute -left-[41px] md:-left-[57px] top-1 w-6 h-6 bg-[#050505] border-2 border-[var(--color-primary)] rounded-full z-10 shadow-[0_0_10px_var(--color-primary)]" />
+            
+            <div className="glass-panel p-8 rounded-xl hover:neon-border transition-all duration-300 relative group overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-10 blur-[50px] group-hover:opacity-20 transition-opacity" />
+              
+              <span className="font-mono text-sm text-[var(--color-primary)] mb-2 block tracking-widest">
+                APR 2024 – PRESENT
+              </span>
+              <div className="relative inline-block group/title">
+                <h3 className="text-2xl font-bold text-white mb-1 cursor-default">Full Stack Developer</h3>
+                <div className="absolute -top-8 left-0 scale-0 group-hover/title:scale-100 transition-transform duration-200 bg-black/90 text-[var(--color-secondary)] text-[10px] font-mono px-3 py-1 rounded whitespace-nowrap border border-[var(--color-secondary)]/30 pointer-events-none z-20">
+                  Currently convincing production that everything is fine.
                 </div>
               </div>
-            ))}
-          </div>
+              <h4 className="text-lg text-gray-400 mb-6 font-mono">RCS Tec</h4>
+              
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-start">
+                  <span className="text-[var(--color-primary)] mr-3 mt-1">▹</span>
+                  Developing highly scalable applications leveraging Spring Boot, Node.js, React, and MySQL.
+                </li>
+                <li className="flex items-start">
+                  <span className="text-[var(--color-primary)] mr-3 mt-1">▹</span>
+                  Leading development teams, enforcing code quality through reviews, and managing deployment pipelines.
+                </li>
+                <li className="flex items-start">
+                  <span className="text-[var(--color-primary)] mr-3 mt-1">▹</span>
+                  Architecting and implementing real-time features, complex workflow systems, and analytics dashboards.
+                </li>
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </div>
-      <div className="section-divider mt-20" />
     </section>
   );
 }

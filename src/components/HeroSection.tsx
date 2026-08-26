@@ -1,118 +1,189 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, MessageCircle, X } from "lucide-react";
+import MagneticButton from "./MagneticButton";
+
 export default function HeroSection() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [subtitle, setSubtitle] = useState("!#X@...92");
+
+  useEffect(() => {
+    // Scramble decryption effect
+    const finalSubtitle = "Initiating System...";
+    const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+    let iterations = 0;
+    
+    const interval = setInterval(() => {
+      setSubtitle(finalSubtitle.split("").map((char, index) => {
+        if (index < iterations) return finalSubtitle[index];
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join(""));
+      
+      if (iterations >= finalSubtitle.length) clearInterval(interval);
+      iterations += 1/3;
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleNameClick = () => {
+    setClickCount(prev => prev + 1);
+    if (clickCount + 1 === 5) {
+      alert("Congratulations. You have officially spent too much time on my portfolio.");
+      setClickCount(0); // reset
+    }
+  };
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 grid-bg opacity-30" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--color-background)]">
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-primary)] opacity-20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--color-secondary)] opacity-10 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Architectural accent lines */}
-      <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent opacity-40 hidden lg:block" style={{ right: '15%' }} />
-      <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent opacity-20 hidden lg:block" style={{ right: '30%' }} />
+      <div className="z-10 text-center px-4 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-[var(--color-primary)] font-mono tracking-widest text-sm md:text-base mb-4 uppercase h-6">
+            {subtitle}
+          </h2>
+        </motion.div>
 
-      {/* Top-right monogram */}
-      <div className="absolute top-24 right-8 lg:right-16 hidden md:block">
-        <div className="font-mono text-[8rem] lg:text-[12rem] leading-none text-[var(--color-border-subtle)] select-none opacity-60">
-          SK
-        </div>
-      </div>
-
-      <div className="section-container relative z-10 py-32 md:py-0">
-        <div className="max-w-3xl">
-          {/* Status indicator */}
-          <div className="flex items-center gap-2.5 mb-8 animate-fade-in">
-            <div className="status-dot" />
-            <span className="font-mono text-xs tracking-widest text-[var(--color-status-green)] uppercase">
-              Available for new projects & opportunities
-            </span>
-          </div>
-
-          {/* Name */}
-          <div className="animate-fade-in-up">
-            <p className="font-mono text-sm tracking-widest text-[var(--color-foreground-muted)] mb-3 uppercase">
-              Sameer Khan
-            </p>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-[var(--color-foreground)] mb-4 animate-fade-in-up delay-100">
-            Full-Stack Developer{" "}
-            <span className="text-[var(--color-accent)]">×</span>{" "}
-            Team Lead
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          <h1 
+            onClick={handleNameClick}
+            className={`text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white cursor-pointer select-none transition-transform active:scale-95 ${clickCount > 3 ? 'animate-pulse text-red-500' : ''}`}
+          >
+            SAMEER <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">KHAN</span>
           </h1>
+        </motion.div>
 
-          {/* Positioning statement */}
-          <p className="text-xl md:text-2xl text-[var(--color-foreground-secondary)] font-light leading-relaxed mb-6 animate-fade-in-up delay-200 max-w-2xl">
-            I build scalable web applications, real-time banking & payment systems, live SaaS, and cross-platform mobile apps (iOS & Android) using Spring Boot, Node.js, React, and MySQL.
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <p className="text-xl md:text-2xl text-gray-400 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
+            Full Stack Developer specializing in scalable web applications, real-time systems, and modern architecture.
           </p>
+        </motion.div>
 
-          {/* Supporting line */}
-          <p className="text-[var(--color-foreground-muted)] text-sm md:text-base mb-10 animate-fade-in-up delay-300 max-w-xl font-mono">
-            Full-stack engineering, team leadership, and cross-platform product delivery.
-          </p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="flex flex-col items-center justify-center gap-6 relative"
+        >
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <MagneticButton>
+              <a href="#projects" className="px-8 py-4 bg-transparent border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-none hover:bg-[var(--color-primary)] hover:text-black transition-all duration-300 font-bold tracking-widest uppercase neon-border whitespace-nowrap">
+                Inspect my questionable decisions
+              </a>
+            </MagneticButton>
+            
+            <div className="flex gap-4 items-center h-full">
+              <MagneticButton>
+                <button 
+                  onClick={() => setIsContactOpen(!isContactOpen)}
+                  className="px-8 py-4 h-[56px] bg-white text-black font-bold tracking-widest uppercase hover:bg-gray-200 transition-all duration-300 z-20 whitespace-nowrap"
+                >
+                  Contact Me {isContactOpen ? '▲' : '▼'}
+                </button>
+              </MagneticButton>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4 animate-fade-in-up delay-400">
-            <a href="#case-studies" className="btn-primary">
-              View All Projects
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                className="ml-1"
+              <MagneticButton>
+                <div className="relative group/download inline-block h-full">
+                  <a 
+                    href="/resume.pdf" 
+                    download="Sameer_Khan_Resume.pdf"
+                    className="flex items-center justify-center w-[56px] h-[56px] bg-[#111] border border-gray-700 text-gray-300 hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all duration-300 rounded-none z-20"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  </a>
+                  {/* Funny Tooltip */}
+                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 scale-0 group-hover/download:scale-100 transition-transform duration-200 bg-black/90 text-gray-300 text-[10px] font-mono px-3 py-2 rounded whitespace-nowrap border border-gray-600 pointer-events-none z-30 flex flex-col items-center">
+                    <span>Download Resume</span>
+                    <span className="text-[var(--color-accent)]">(100% Virus Free, probably)</span>
+                  </div>
+                </div>
+              </MagneticButton>
+            </div>
+          </div>
+
+          {/* Inline Flowchart Dropdown */}
+          <AnimatePresence>
+            {isContactOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="flex flex-col items-center overflow-hidden w-full"
               >
-                <path
-                  d="M1 7h12m0 0L8 2m5 5L8 12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                {/* Vertical line down from Contact button */}
+                <motion.div 
+                  initial={{ height: 0 }}
+                  animate={{ height: "2rem" }}
+                  exit={{ height: 0 }}
+                  className="w-0.5 bg-[var(--color-primary)]"
                 />
-              </svg>
-            </a>
-            <a href="#contact" className="btn-secondary">
-              Get In Touch
-            </a>
-          </div>
+                
+                {/* Horizontal branch */}
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: "20rem" }}
+                  exit={{ width: 0 }}
+                  className="h-0.5 bg-[var(--color-primary)]"
+                />
 
-          {/* Micro stats */}
-          <div className="flex gap-8 mt-16 pt-8 border-t border-[var(--color-border)] animate-fade-in-up delay-500">
-            <div>
-              <p className="text-2xl font-light text-[var(--color-foreground)]">
-                2+
-              </p>
-              <p className="font-mono text-xs text-[var(--color-foreground-muted)] tracking-wide mt-1">
-                Years Experience
-              </p>
-            </div>
-            <div className="w-px bg-[var(--color-border)]" />
-            <div>
-              <p className="text-2xl font-light text-[var(--color-foreground)]">
-                9+
-              </p>
-              <p className="font-mono text-xs text-[var(--color-foreground-muted)] tracking-wide mt-1">
-                Major Projects
-              </p>
-            </div>
-            <div className="w-px bg-[var(--color-border)]" />
-            <div>
-              <p className="text-2xl font-light text-[var(--color-foreground)]">
-                Web & Mobile
-              </p>
-              <p className="font-mono text-xs text-[var(--color-foreground-muted)] tracking-wide mt-1">
-                Web, iOS & Android
-              </p>
-            </div>
-          </div>
-        </div>
+                {/* Branch Nodes */}
+                <div className="flex w-full max-w-sm justify-between px-2 mt-4">
+                  {/* Email Node */}
+                  <motion.a
+                    href="mailto:sameer6306khan@gmail.com"
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ type: "spring" }}
+                    className="glass-panel p-4 rounded-xl border border-gray-700 hover:border-white transition-all flex flex-col items-center gap-2 w-36 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] group relative z-10"
+                  >
+                    <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
+                    <Mail className="w-6 h-6 text-gray-300 group-hover:text-white" />
+                    <span className="font-mono text-xs tracking-wider text-white">EMAIL</span>
+                  </motion.a>
+
+                  {/* WhatsApp Node */}
+                  <motion.a
+                    href="https://wa.me/917985835954"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ type: "spring", delay: 0.1 }}
+                    className="glass-panel p-4 rounded-xl border border-green-900/50 hover:border-green-500 transition-all flex flex-col items-center gap-2 w-36 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(34,197,94,0.2)] group relative z-10 bg-black/40"
+                  >
+                    <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
+                    <MessageCircle className="w-6 h-6 text-green-500/70 group-hover:text-green-400" />
+                    <span className="font-mono text-xs tracking-wider text-green-400">WHATSAPP</span>
+                  </motion.a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
-      {/* Bottom border */}
-      <div className="absolute bottom-0 left-0 right-0 section-divider" />
+      {/* Grid overlay for cyberpunk feel */}
+      <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none mix-blend-overlay" />
     </section>
   );
 }
