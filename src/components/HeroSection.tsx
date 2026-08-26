@@ -42,10 +42,11 @@ export default function HeroSection() {
   };
 
   // Easter egg handlers
-  const handleSecretPress = () => {
+  const handleSecretPress = (e: React.PointerEvent) => {
+    e.preventDefault(); // Prevent text selection on mobile
     const timer = setTimeout(() => {
       setSecretRevealed(true);
-    }, 5000); // 5 seconds hold to reveal
+    }, 3000); // 3 seconds hold to reveal (5s is too long for OS touch cancellation)
     setPressTimer(timer);
   };
 
@@ -76,41 +77,50 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.2 }}
         >
           <h1 
-            className={`text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white select-none transition-transform active:scale-95 flex items-center justify-center ${clickCount > 3 ? 'animate-pulse text-red-500' : ''}`}
+            className={`text-[12vw] sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-white transition-transform active:scale-95 flex flex-row items-center justify-center flex-wrap sm:flex-nowrap ${clickCount > 3 ? 'animate-pulse text-red-500' : ''}`}
           >
-            <span 
-              onPointerDown={handleSecretPress}
-              onPointerUp={handleSecretRelease}
-              onPointerLeave={handleSecretRelease}
-              className="cursor-pointer"
-            >
-              S
-            </span>
-            <AnimatePresence mode="wait">
-              {secretRevealed ? (
-                <motion.span
-                  key="seenam"
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: "auto" }}
-                  transition={{ duration: 0.5, type: "spring" }}
-                  className="text-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
-                >
-                  EENAM <span className="animate-pulse">❤️</span>
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="ameerkhan"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-                  transition={{ duration: 0.3 }}
-                  onClick={handleNameClick}
-                  className="cursor-pointer"
-                >
-                  AMEER <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">KHAN</span>
-                </motion.span>
-              )}
-            </AnimatePresence>
+            <div className="flex flex-row items-center whitespace-nowrap">
+              <span 
+                onPointerDown={handleSecretPress}
+                onPointerUp={handleSecretRelease}
+                onPointerLeave={handleSecretRelease}
+                onPointerCancel={handleSecretRelease}
+                onContextMenu={(e) => e.preventDefault()}
+                className="cursor-pointer select-none touch-none [-webkit-touch-callout:none] [-webkit-user-select:none]"
+              >
+                S
+              </span>
+              <AnimatePresence mode="wait">
+                {secretRevealed ? (
+                  <motion.span
+                    key="seenam"
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    transition={{ duration: 0.5, type: "spring" }}
+                    className="text-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
+                  >
+                    EENAM <span className="animate-pulse">❤️</span>
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="ameer"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                    transition={{ duration: 0.3 }}
+                    onClick={handleNameClick}
+                    className="cursor-pointer select-none touch-none [-webkit-touch-callout:none] [-webkit-user-select:none]"
+                  >
+                    AMEER
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
+            {!secretRevealed && (
+              <span className="ml-2 sm:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] cursor-pointer select-none" onClick={handleNameClick}>
+                KHAN
+              </span>
+            )}
           </h1>
         </motion.div>
 
