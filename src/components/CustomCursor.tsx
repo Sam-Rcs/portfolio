@@ -49,13 +49,20 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
+      {/* The Flashlight / Spotlight Effect */}
       <motion.div
-        className="fixed top-0 left-0 w-96 h-96 bg-[var(--color-primary)] rounded-full pointer-events-none z-0 blur-[150px] opacity-10 mix-blend-screen"
+        className="fixed inset-0 pointer-events-none z-10 mix-blend-screen"
         animate={{
-          x: mousePosition.x - 192,
-          y: mousePosition.y - 192,
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 240, 255, 0.15), transparent 40%)`
         }}
-        transition={{ type: "tween", ease: "backOut", duration: 0.5 }}
+        transition={{ type: "tween", ease: "linear", duration: 0.1 }}
+      />
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-20 mix-blend-overlay"
+        animate={{
+          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.1), transparent 40%)`
+        }}
+        transition={{ type: "tween", ease: "linear", duration: 0.1 }}
       />
     </>
   );
