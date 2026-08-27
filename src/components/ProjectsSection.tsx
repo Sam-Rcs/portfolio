@@ -147,14 +147,14 @@ export default function ProjectsSection() {
                 <AnimatePresence>
                   {isExpanded && (
                     <>
-                      {/* Backend — Top */}
+                      {/* Backend — Pops UP */}
                       {project.details.backend && (
                         <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                          initial={{ opacity: 0, y: 20, scale: 0.8 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                          exit={{ opacity: 0, y: 20, scale: 0.8 }}
                           transition={{ type: "spring", damping: 15 }}
-                          className="absolute -top-8 left-1/2 -translate-x-1/2"
+                          className="absolute -top-14 left-1/2 -translate-x-1/2 z-50"
                         >
                           <NodeChip
                             label="Service"
@@ -165,14 +165,14 @@ export default function ProjectsSection() {
                         </motion.div>
                       )}
 
-                      {/* Frontend/Mobile — Bottom Left on mobile, Left on desktop */}
+                      {/* Frontend/Mobile — Pops Bottom-Left */}
                       {(project.details.frontend || project.details.mobile) && (
                         <motion.div
-                          initial={{ opacity: 0, x: 10, scale: 0.8 }}
-                          animate={{ opacity: 1, x: 0, scale: 1 }}
-                          exit={{ opacity: 0, x: 10, scale: 0.8 }}
+                          initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -20, scale: 0.8 }}
                           transition={{ type: "spring", damping: 15, delay: 0.05 }}
-                          className="absolute bottom-4 left-4 md:bottom-auto md:top-1/2 md:-left-10 md:-translate-y-1/2"
+                          className="absolute -bottom-14 left-4 z-50"
                         >
                           <NodeChip
                             label="Client"
@@ -183,19 +183,19 @@ export default function ProjectsSection() {
                         </motion.div>
                       )}
 
-                      {/* Database — Bottom Right on mobile, Right on desktop */}
+                      {/* Database — Pops Bottom-Right */}
                       {project.details.database && (
                         <motion.div
-                          initial={{ opacity: 0, x: -10, scale: 0.8 }}
-                          animate={{ opacity: 1, x: 0, scale: 1 }}
-                          exit={{ opacity: 0, x: -10, scale: 0.8 }}
+                          initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -20, scale: 0.8 }}
                           transition={{ type: "spring", damping: 15, delay: 0.1 }}
-                          className="absolute bottom-4 right-4 md:bottom-auto md:top-1/2 md:-right-10 md:-translate-y-1/2"
+                          className="absolute -bottom-14 right-4 z-50"
                         >
                           <NodeChip
                             label="Database"
                             items={project.details.database}
-                            color="#64748b"
+                            color="#0891b2"
                             icon={<Database className="w-4 h-4" />}
                           />
                         </motion.div>
