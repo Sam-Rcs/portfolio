@@ -12,9 +12,9 @@ export default function EducationSection() {
         <SectionBanner
           eyebrow="education.log"
           title="ACADEMIC"
-          highlight="CORE"
+          highlight="CREDENTIALS"
           gradient="from-slate-500 to-slate-700"
-          description="Bachelor of Computer Applications · 2020–2023"
+          description="Error 404: GPA Not Found. Reading actual code is recommended instead."
         />
 
         <motion.div
@@ -33,8 +33,8 @@ export default function EducationSection() {
                 border: "1px solid rgba(255,255,255,0.04)",
               }}
             >
-              <span className="font-mono text-xs text-[var(--color-muted)] tracking-widest block mb-2">GRADUATED</span>
-              <span className="font-black text-4xl text-[var(--color-foreground)]">2023</span>
+              <span className="font-mono text-xs text-[var(--color-muted)] tracking-widest block mb-2">LEARNING STATUS</span>
+              <span className="font-black text-2xl text-[var(--color-foreground)]">FOREVER</span>
             </div>
           </div>
 
@@ -52,10 +52,10 @@ export default function EducationSection() {
                 style={{ background: "radial-gradient(circle at 0% 50%, rgba(139,92,246,0.05) 0%, transparent 70%)" }}
               />
               <div className="relative z-10">
-                <h3 className="text-xl font-bold text-[var(--color-foreground)] mb-2">Bachelor of Computer Applications</h3>
-                <h4 className="text-sm text-[var(--color-muted)] font-mono mb-5">Chhatrapati Shahu Ji Maharaj University · 2020–2023</h4>
+                <h3 className="text-xl font-bold text-[var(--color-foreground)] mb-2">Self-Taught StackOverflow Specialist</h3>
+                <h4 className="text-sm text-[var(--color-muted)] font-mono mb-5">University of YouTube & ChatGPT · Class of 2020–∞</h4>
                 <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-                  Focus on software engineering, database management systems, and core computer science fundamentals.
+                  Honestly, who looks at academic degrees in 2026? Please scroll back up and inspect my actual **Projects Section**. That&apos;s where the real production-grade code lives! 🚀 (No professors were harmed in the making of this section).
                 </p>
               </div>
             </div>
