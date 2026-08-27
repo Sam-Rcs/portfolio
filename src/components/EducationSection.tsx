@@ -4,47 +4,67 @@ import { motion } from "framer-motion";
 
 export default function EducationSection() {
   return (
-    <section id="education" className="py-24 bg-[#0a0a0a]">
+    <section id="education" className="py-28 bg-[var(--color-background)]">
       <div className="max-w-5xl mx-auto px-4">
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
-            ACADEMIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-300">CORE</span>
+          <p className="text-[var(--color-muted)] font-mono text-xs tracking-[0.4em] uppercase mb-4">education.log</p>
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+            ACADEMIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-muted)] to-white">CORE</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-gray-500 to-transparent" />
+          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-muted)] to-white mt-6 rounded-full" />
         </motion.div>
 
-        <div className="relative pl-8 md:pl-0">
-          <div className="md:hidden absolute left-[15px] top-0 bottom-0 w-0.5 bg-gray-800" />
-          
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative md:grid md:grid-cols-2 gap-8 items-center"
-          >
-            {/* Timeline dot */}
-            <div className="absolute -left-10 md:left-1/2 md:-ml-2 top-0 md:top-1/2 md:-mt-2 w-4 h-4 rounded-full bg-gray-600 shadow-[0_0_15px_rgba(156,163,175,0.5)] z-10" />
-            
-            <div className="md:text-right pb-8 md:pb-0 md:pr-12">
-              <span className="font-mono text-sm text-gray-400 mb-2 block tracking-widest">
-                2020 – 2023
-              </span>
-              <h3 className="text-2xl font-bold text-white mb-1">Bachelor of Computer Applications</h3>
-              <h4 className="text-lg text-gray-500 font-mono">Chhatrapati Shahu Ji Maharaj University</h4>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="md:grid md:grid-cols-5 gap-8 items-center"
+        >
+          {/* Year badge */}
+          <div className="md:col-span-2 flex justify-center md:justify-end mb-8 md:mb-0">
+            <div
+              className="rounded-2xl px-8 py-6 text-center"
+              style={{
+                background: "var(--color-surface)",
+                boxShadow: "inset 4px 4px 12px var(--color-shadow-dark), inset -4px -4px 12px var(--color-shadow-light)",
+                border: "1px solid rgba(255,255,255,0.04)",
+              }}
+            >
+              <span className="font-mono text-xs text-[var(--color-muted)] tracking-widest block mb-2">GRADUATED</span>
+              <span className="font-black text-4xl text-white">2023</span>
             </div>
-            
-            <div className="md:pl-12 hidden md:block">
-              <div className="glass-panel p-6 rounded-xl border border-gray-800 text-gray-400 text-sm">
-                Focus on software engineering, database management systems, and core computer science fundamentals.
+          </div>
+
+          {/* Content card */}
+          <div className="md:col-span-3">
+            <div
+              className="rounded-2xl p-8 relative overflow-hidden group"
+              style={{
+                background: "var(--color-surface)",
+                boxShadow: "8px 8px 20px var(--color-shadow-dark), -8px -8px 20px var(--color-shadow-light)",
+                border: "1px solid rgba(255,255,255,0.04)",
+              }}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                style={{ background: "radial-gradient(circle at 0% 50%, rgba(139,92,246,0.05) 0%, transparent 70%)" }}
+              />
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-white mb-2">Bachelor of Computer Applications</h3>
+                <h4 className="text-sm text-[var(--color-muted)] font-mono mb-5">Chhatrapati Shahu Ji Maharaj University · 2020–2023</h4>
+                <p className="text-[var(--color-muted)] text-sm leading-relaxed">
+                  Focus on software engineering, database management systems, and core computer science fundamentals.
+                </p>
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

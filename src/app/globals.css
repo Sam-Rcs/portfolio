@@ -1,28 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-background: #050505;
-  --color-foreground: #ededed;
-  --color-primary: #00f0ff;
-  --color-secondary: #ff003c;
-  --color-accent: #7000ff;
+  --color-background: #12122a;
+  --color-surface:    #16162e;
+  --color-shadow-light: #22224a;
+  --color-shadow-dark:  #0c0c1e;
+  --color-primary:   #00d4ff;
+  --color-secondary: #ff006e;
+  --color-accent:    #8b5cf6;
+  --color-foreground: #c8cce8;
+  --color-muted:     #6b7280;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: rgba(0, 212, 255, 0.2);
+    color: #fff;
   }
 }
 
+/* ─── Neumorphism Core Utilities ──────────────────────────────────────── */
+
+/* Raised element — pops out of surface */
+.neu-raised {
+  background: var(--color-surface);
+  box-shadow:
+    6px 6px 16px var(--color-shadow-dark),
+    -6px -6px 16px var(--color-shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* Inset element — pressed into surface */
+.neu-inset {
+  background: var(--color-surface);
+  box-shadow:
+    inset 4px 4px 12px var(--color-shadow-dark),
+    inset -4px -4px 12px var(--color-shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Flat card with subtle glow border */
+.neu-flat {
+  background: linear-gradient(145deg, #18183a, #141428);
+  box-shadow:
+    4px 4px 10px var(--color-shadow-dark),
+    -4px -4px 10px var(--color-shadow-light);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+/* Hover pressed state for interactive cards */
+.neu-hover:hover {
+  box-shadow:
+    inset 3px 3px 10px var(--color-shadow-dark),
+    inset -3px -3px 10px var(--color-shadow-light);
+  transform: scale(0.98);
+}
+
+/* Button styles */
+.neu-btn {
+  background: linear-gradient(145deg, #1c1c3c, #131328);
+  box-shadow:
+    5px 5px 14px var(--color-shadow-dark),
+    -5px -5px 14px var(--color-shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+.neu-btn:active {
+  box-shadow:
+    inset 3px 3px 10px var(--color-shadow-dark),
+    inset -3px -3px 10px var(--color-shadow-light);
+  transform: scale(0.97);
+}
+
+/* Glowing accent border */
+.neu-glow-cyan {
+  box-shadow:
+    6px 6px 16px var(--color-shadow-dark),
+    -6px -6px 16px var(--color-shadow-light),
+    0 0 20px rgba(0, 212, 255, 0.15),
+    inset 0 0 20px rgba(0, 212, 255, 0.04);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.neu-glow-purple {
+  box-shadow:
+    6px 6px 16px var(--color-shadow-dark),
+    -6px -6px 16px var(--color-shadow-light),
+    0 0 20px rgba(139, 92, 246, 0.15),
+    inset 0 0 20px rgba(139, 92, 246, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Legacy class kept for compatibility */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(22, 22, 46, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .neon-border {
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.4), inset 0 0 12px rgba(0, 212, 255, 0.08);
   border: 1px solid var(--color-primary);
 }
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.4); }
