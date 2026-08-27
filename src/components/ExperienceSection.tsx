@@ -81,6 +81,8 @@ export default function ExperienceSection() {
                     "Developing highly scalable applications leveraging Spring Boot, Node.js, React, and MySQL.",
                     "Leading development teams, enforcing code quality through reviews, and managing deployment pipelines.",
                     "Architecting and implementing real-time features, complex workflow systems, and analytics dashboards.",
+                    "Refactored legacy systems, decreasing server load times by 20% simply by deleting console.log statements.",
+                    "Maintained a 100% success rate of googling obscure StackOverflow answers to resolve production crashes.",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-[var(--color-muted)] text-sm leading-relaxed">
                       <span className="text-[var(--color-primary)] mt-0.5 shrink-0">▹</span>

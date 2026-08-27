@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle, Flame, Brain, Bird } from "lucide-react";
 import CodeSnippet from "./CodeSnippet";
 
 export default function HeroSection() {
@@ -218,19 +218,22 @@ export default function HeroSection() {
                 exit={{ width: 0 }}
                 className="h-0.5 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent"
               />
-              <div className="flex w-full max-w-xs justify-between px-2 mt-4 gap-4">
+              <div className="flex flex-wrap w-full max-w-2xl justify-center px-4 mt-6 gap-4">
+                {/* Email */}
                 <motion.a
                   href="mailto:sameer6306khan@gmail.com"
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ type: "spring" }}
-                  className="neu-raised flex-1 p-4 rounded-2xl flex flex-col items-center gap-2 transition-all duration-300 hover:shadow-[0_0_18px_rgba(37,99,235,0.15)] group relative"
+                  className="neu-raised p-4 rounded-2xl flex flex-col items-center gap-2 transition-all duration-300 hover:shadow-[0_0_18px_rgba(37,99,235,0.15)] group relative w-32"
                 >
                   <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
                   <Mail className="w-5 h-5 text-[var(--color-muted)] group-hover:text-[var(--color-primary)] transition-colors" />
                   <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors">EMAIL</span>
                 </motion.a>
+
+                {/* WhatsApp */}
                 <motion.a
                   href="https://wa.me/917985835954"
                   target="_blank"
@@ -238,13 +241,55 @@ export default function HeroSection() {
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  transition={{ type: "spring", delay: 0.1 }}
-                  className="neu-raised flex-1 p-4 rounded-2xl flex flex-col items-center gap-2 hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] transition-all duration-300 group relative"
+                  transition={{ type: "spring", delay: 0.05 }}
+                  className="neu-raised p-4 rounded-2xl flex flex-col items-center gap-2 hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] transition-all duration-300 group relative w-32"
                 >
                   <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
                   <MessageCircle className="w-5 h-5 text-green-500/60 group-hover:text-green-400 transition-colors" />
                   <span className="font-mono text-xs tracking-wider text-green-600 group-hover:text-green-400 transition-colors">WHATSAPP</span>
                 </motion.a>
+
+                {/* Signal Flare */}
+                <motion.button
+                  onClick={() => alert("Signal Flare Option: Please light a fire on your rooftop. I will look out my window. 📡🔥")}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ type: "spring", delay: 0.1 }}
+                  className="neu-raised p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:shadow-[0_0_18px_rgba(225,29,72,0.2)] group relative w-32"
+                >
+                  <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
+                  <Flame className="w-5 h-5 text-[var(--color-muted)] group-hover:text-red-500 transition-colors" />
+                  <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors">FLARE</span>
+                </motion.button>
+
+                {/* Telepathy */}
+                <motion.button
+                  onClick={() => alert("Telepathy Channel: Focus really hard on your budget and project timeline... I am listening. 🧠⚡")}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ type: "spring", delay: 0.15 }}
+                  className="neu-raised p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:shadow-[0_0_18px_rgba(124,58,237,0.2)] group relative w-32"
+                >
+                  <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
+                  <Brain className="w-5 h-5 text-[var(--color-muted)] group-hover:text-violet-500 transition-colors" />
+                  <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors">TELEPATHY</span>
+                </motion.button>
+
+                {/* Carrier Pigeon */}
+                <motion.button
+                  onClick={() => alert("Carrier Pigeon Option: Dispatched. ETA 3-5 business days. Please leave some crumbs on your balcony. 🐦✉️")}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ type: "spring", delay: 0.2 }}
+                  className="neu-raised p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:shadow-[0_0_18px_rgba(37,99,235,0.2)] group relative w-32"
+                >
+                  <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
+                  <Bird className="w-5 h-5 text-[var(--color-muted)] group-hover:text-blue-400 transition-colors" />
+                  <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors">PIGEON</span>
+                </motion.button>
               </div>
             </motion.div>
           )}

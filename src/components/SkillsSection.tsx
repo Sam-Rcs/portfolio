@@ -7,17 +7,17 @@ import SectionBanner from "./SectionBanner";
 const skills = [
   { name: "Java",         icon: <Terminal className="w-6 h-6" />,  tooltip: "Brewed with unreasonable amounts of coffee." },
   { name: "Spring Boot",  icon: <Server className="w-6 h-6" />,    tooltip: "Enterprise ready. Debugging: never." },
-  { name: "Golang",       icon: <Terminal className="w-6 h-6" />,  tooltip: null },
+  { name: "Golang",       icon: <Terminal className="w-6 h-6" />,  tooltip: "Pointers are fun, until they point to null." },
   { name: "Node.js",      icon: <Server className="w-6 h-6" />,    tooltip: null },
   { name: "React",        icon: <Layout className="w-6 h-6" />,    tooltip: null },
   { name: "Android",      icon: <Code className="w-6 h-6" />,      tooltip: "Kotlin & Java both." },
   { name: "iOS",          icon: <Code className="w-6 h-6" />,      tooltip: "Swift. Xcode build times: not swift." },
-  { name: "PostgreSQL",   icon: <Database className="w-6 h-6" />,  tooltip: null },
-  { name: "MySQL",        icon: <Database className="w-6 h-6" />,  tooltip: null },
+  { name: "PostgreSQL",   icon: <Database className="w-6 h-6" />,  tooltip: "SELECT * FROM brain WHERE coffee > 0;" },
+  { name: "MySQL",        icon: <Database className="w-6 h-6" />,  tooltip: "SELECT * FROM brain WHERE coffee > 0;" },
   { name: "MongoDB",      icon: <Database className="w-6 h-6" />,  tooltip: null },
-  { name: "REST APIs",    icon: <Code className="w-6 h-6" />,      tooltip: null },
+  { name: "REST APIs",    icon: <Code className="w-6 h-6" />,      tooltip: "JSON is my official love language." },
   { name: "WebSockets",   icon: <Terminal className="w-6 h-6" />,  tooltip: null },
-  { name: "Microservices",icon: <Server className="w-6 h-6" />,    tooltip: null },
+  { name: "Microservices",icon: <Server className="w-6 h-6" />,    tooltip: "Turning one big problem into 20 small, distributed problems." },
   { name: "Git",          icon: <GitBranch className="w-6 h-6" />, tooltip: "git commit -m 'fix: fingers crossed'" },
 ];
 
