@@ -49,7 +49,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--color-background)]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--color-background)] bg-[radial-gradient(ellipse_at_top,_rgba(37,99,235,0.05)_0%,_transparent_60%)]">
       {/* Floating neumorphic orbs */}
       <motion.div
         className="absolute top-1/4 left-1/5 w-80 h-80 rounded-full pointer-events-none"
@@ -90,7 +90,7 @@ export default function HeroSection() {
         >
           <h1
             className={`text-[14vw] sm:text-7xl md:text-9xl font-black mb-8 tracking-tighter transition-all duration-300 flex flex-row items-center justify-center flex-wrap sm:flex-nowrap ${
-              clickCount > 3 ? "animate-pulse text-[var(--color-secondary)]" : "text-white"
+              clickCount > 3 ? "animate-pulse text-[var(--color-secondary)]" : "text-[var(--color-foreground)]"
             }`}
           >
             <div className="flex flex-row items-center whitespace-nowrap">
@@ -146,7 +146,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-[var(--color-muted)] mb-12 font-light max-w-2xl mx-auto leading-relaxed tracking-wide"
+          className="text-base md:text-lg text-[var(--color-muted)] mb-12 font-light max-w-2xl mx-auto leading-relaxed tracking-wide"
         >
           Full Stack Developer · Scalable Systems · Real-time Architecture
         </motion.p>
@@ -161,7 +161,7 @@ export default function HeroSection() {
           {/* Primary CTA */}
           <a
             href="#projects"
-            className="neu-btn px-8 py-4 rounded-2xl text-[var(--color-primary)] font-bold tracking-widest uppercase text-sm border border-[var(--color-primary)]/20 hover:border-[var(--color-primary)]/50 hover:shadow-[0_0_25px_rgba(0,212,255,0.2)] transition-all duration-300 w-full md:w-auto text-center"
+            className="neu-btn px-8 py-4 rounded-2xl text-[var(--color-primary)] font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_20px_rgba(37,99,235,0.18)] transition-all duration-300 w-full md:w-auto text-center"
           >
             Inspect my questionable decisions
           </a>
@@ -170,7 +170,7 @@ export default function HeroSection() {
             {/* Contact Toggle */}
             <button
               onClick={() => setIsContactOpen(!isContactOpen)}
-              className="neu-btn px-8 py-4 rounded-2xl text-white font-bold tracking-widest uppercase text-sm hover:text-[var(--color-primary)] transition-all duration-300 whitespace-nowrap"
+              className="neu-btn px-8 py-4 rounded-2xl text-[var(--color-foreground)] font-bold tracking-widest uppercase text-sm hover:text-[var(--color-primary)] transition-all duration-300 whitespace-nowrap"
             >
               Contact Me {isContactOpen ? "▲" : "▼"}
             </button>
@@ -180,7 +180,7 @@ export default function HeroSection() {
               <a
                 href="/resume.pdf"
                 download="Sameer_Khan_Resume.pdf"
-                className="neu-btn flex items-center justify-center w-14 h-14 rounded-2xl text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-all duration-300"
+                className="neu-btn flex items-center justify-center w-14 h-14 rounded-2xl text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-all duration-300 hover:shadow-[0_0_16px_rgba(37,99,235,0.2)]"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -188,8 +188,8 @@ export default function HeroSection() {
                   <line x1="12" x2="12" y1="15" y2="3"/>
                 </svg>
               </a>
-              <div className="absolute -top-14 left-1/2 -translate-x-1/2 scale-0 group-hover/download:scale-100 transition-transform duration-200 neu-raised text-[var(--color-muted)] text-[10px] font-mono px-3 py-2 rounded-xl whitespace-nowrap pointer-events-none z-30 flex flex-col items-center">
-                <span className="text-white">Download Resume</span>
+              <div className="absolute -top-14 left-1/2 -translate-x-1/2 scale-0 group-hover/download:scale-100 transition-transform duration-200 neu-raised text-[10px] font-mono px-3 py-2 rounded-xl whitespace-nowrap pointer-events-none z-30 flex flex-col items-center">
+                <span className="text-[var(--color-foreground)]">Download Resume</span>
                 <span className="text-[var(--color-accent)]">(100% Virus Free, probably)</span>
               </div>
             </div>
@@ -224,11 +224,11 @@ export default function HeroSection() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ type: "spring" }}
-                  className="neu-raised flex-1 p-4 rounded-2xl flex flex-col items-center gap-2 hover:neu-glow-cyan transition-all duration-300 group relative"
+                  className="neu-raised flex-1 p-4 rounded-2xl flex flex-col items-center gap-2 transition-all duration-300 hover:shadow-[0_0_18px_rgba(37,99,235,0.15)] group relative"
                 >
                   <div className="absolute -top-4 w-0.5 h-4 bg-[var(--color-primary)]" />
                   <Mail className="w-5 h-5 text-[var(--color-muted)] group-hover:text-[var(--color-primary)] transition-colors" />
-                  <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-white transition-colors">EMAIL</span>
+                  <span className="font-mono text-xs tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors">EMAIL</span>
                 </motion.a>
                 <motion.a
                   href="https://wa.me/917985835954"
@@ -254,7 +254,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,212,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.5) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(37,99,235,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.3) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />

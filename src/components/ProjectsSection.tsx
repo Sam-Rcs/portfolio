@@ -210,11 +210,11 @@ export default function ProjectsSection() {
                   whileTap={{ scale: 0.98 }}
                   className="w-full rounded-2xl p-7 cursor-pointer relative overflow-hidden group z-30"
                   style={{
-                    background: "var(--color-surface)",
+                    background: "var(--color-background)",
                     boxShadow: isExpanded
-                      ? `8px 8px 20px var(--color-shadow-dark), -8px -8px 20px var(--color-shadow-light), 0 0 30px rgba(0,212,255,0.12)`
+                      ? `8px 8px 20px var(--color-shadow-dark), -8px -8px 20px var(--color-shadow-light), 0 0 28px rgba(37,99,235,0.12)`
                       : `6px 6px 16px var(--color-shadow-dark), -6px -6px 16px var(--color-shadow-light)`,
-                    border: isExpanded ? "1px solid rgba(0,212,255,0.2)" : "1px solid rgba(255,255,255,0.04)",
+                    border: isExpanded ? "1px solid rgba(37,99,235,0.2)" : "none",
                     transition: "all 0.3s ease",
                   }}
                 >
@@ -258,9 +258,9 @@ export default function ProjectsSection() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="w-full rounded-2xl p-7 cursor-pointer relative overflow-hidden group flex flex-col items-center justify-center min-h-[200px]"
             style={{
-              background: "var(--color-surface)",
+              background: "var(--color-background)",
               boxShadow: "inset 4px 4px 12px var(--color-shadow-dark), inset -4px -4px 12px var(--color-shadow-light)",
-              border: "1px dashed rgba(0,212,255,0.15)",
+              border: "1px dashed rgba(37,99,235,0.2)",
               transition: "all 0.3s ease",
             }}
           >

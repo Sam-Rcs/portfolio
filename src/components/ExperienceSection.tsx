@@ -38,7 +38,7 @@ export default function ExperienceSection() {
             <div className="absolute -left-[3.2rem] md:-left-[4.4rem] top-8 w-5 h-5 rounded-full z-10 flex items-center justify-center"
               style={{
                 background: "var(--color-surface)",
-                boxShadow: "0 0 0 3px var(--color-primary), 0 0 16px rgba(0,212,255,0.6)",
+                boxShadow: "0 0 0 3px var(--color-primary), 0 0 14px rgba(37,99,235,0.5)",
               }}
             >
               <div className="w-2 h-2 rounded-full bg-[var(--color-primary)]" />
@@ -68,7 +68,7 @@ export default function ExperienceSection() {
                   <div
                     className="absolute -top-9 left-0 scale-0 group-hover/title:scale-100 transition-transform duration-200 rounded-xl px-3 py-1.5 text-[10px] font-mono whitespace-nowrap pointer-events-none z-20"
                     style={{
-                      background: "var(--color-surface)",
+                      background: "var(--color-background)",
                       boxShadow: "3px 3px 8px var(--color-shadow-dark), -3px -3px 8px var(--color-shadow-light)",
                       color: "var(--color-secondary)",
                       border: "1px solid rgba(255,0,110,0.2)",

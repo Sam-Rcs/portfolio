@@ -2,15 +2,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #12122a;
-  --color-surface:    #16162e;
-  --color-shadow-light: #22224a;
-  --color-shadow-dark:  #0c0c1e;
-  --color-primary:   #00d4ff;
-  --color-secondary: #ff006e;
-  --color-accent:    #8b5cf6;
-  --color-foreground: #c8cce8;
-  --color-muted:     #6b7280;
+  /* ── White Neumorphism Palette ── */
+  --color-background:    #eaeef3;
+  --color-surface:       #eef2f7;
+  --color-shadow-light:  #ffffff;
+  --color-shadow-dark:   #c5ccd6;
+
+  /* ── Accent Colors (rich, not washed out on white) ── */
+  --color-primary:    #2563eb;   /* deep electric blue   */
+  --color-secondary:  #e11d48;   /* vivid rose red        */
+  --color-accent:     #7c3aed;   /* rich violet           */
+
+  /* ── Text ── */
+  --color-foreground: #1e293b;   /* dark slate — max readability */
+  --color-muted:      #64748b;   /* slate 500 */
+
   --font-sans: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -28,20 +34,20 @@
   }
 
   ::selection {
-    background-color: rgba(0, 212, 255, 0.2);
-    color: #fff;
+    background-color: rgba(37, 99, 235, 0.15);
+    color: var(--color-primary);
   }
 }
 
 /* ─── Neumorphism Core Utilities ──────────────────────────────────────── */
 
-/* Raised element — pops out of surface */
+/* Raised element — pops out of the white surface */
 .neu-raised {
   background: var(--color-surface);
   box-shadow:
-    6px 6px 16px var(--color-shadow-dark),
-    -6px -6px 16px var(--color-shadow-light);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+    6px 6px 14px var(--color-shadow-dark),
+    -6px -6px 14px var(--color-shadow-light);
+  border: none;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
@@ -49,80 +55,79 @@
 .neu-inset {
   background: var(--color-surface);
   box-shadow:
-    inset 4px 4px 12px var(--color-shadow-dark),
-    inset -4px -4px 12px var(--color-shadow-light);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+    inset 4px 4px 10px var(--color-shadow-dark),
+    inset -4px -4px 10px var(--color-shadow-light);
+  border: none;
 }
 
-/* Flat card with subtle glow border */
+/* Flat card */
 .neu-flat {
-  background: linear-gradient(145deg, #18183a, #141428);
+  background: var(--color-surface);
   box-shadow:
     4px 4px 10px var(--color-shadow-dark),
     -4px -4px 10px var(--color-shadow-light);
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.08);
 }
 
-/* Hover pressed state for interactive cards */
+/* Hover pressed state */
 .neu-hover:hover {
   box-shadow:
-    inset 3px 3px 10px var(--color-shadow-dark),
-    inset -3px -3px 10px var(--color-shadow-light);
+    inset 3px 3px 8px var(--color-shadow-dark),
+    inset -3px -3px 8px var(--color-shadow-light);
   transform: scale(0.98);
 }
 
-/* Button styles */
+/* Button */
 .neu-btn {
-  background: linear-gradient(145deg, #1c1c3c, #131328);
+  background: var(--color-surface);
   box-shadow:
-    5px 5px 14px var(--color-shadow-dark),
-    -5px -5px 14px var(--color-shadow-light);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+    5px 5px 12px var(--color-shadow-dark),
+    -5px -5px 12px var(--color-shadow-light);
+  border: none;
   transition: all 0.2s ease;
 }
 .neu-btn:active {
   box-shadow:
-    inset 3px 3px 10px var(--color-shadow-dark),
-    inset -3px -3px 10px var(--color-shadow-light);
+    inset 3px 3px 8px var(--color-shadow-dark),
+    inset -3px -3px 8px var(--color-shadow-light);
   transform: scale(0.97);
 }
 
-/* Glowing accent border */
+/* Glowing accent — blue glow */
 .neu-glow-cyan {
   box-shadow:
-    6px 6px 16px var(--color-shadow-dark),
-    -6px -6px 16px var(--color-shadow-light),
-    0 0 20px rgba(0, 212, 255, 0.15),
-    inset 0 0 20px rgba(0, 212, 255, 0.04);
-  border: 1px solid rgba(0, 212, 255, 0.2);
+    6px 6px 14px var(--color-shadow-dark),
+    -6px -6px 14px var(--color-shadow-light),
+    0 0 18px rgba(37, 99, 235, 0.18);
+  border: 1px solid rgba(37, 99, 235, 0.2);
 }
 
+/* Glowing accent — purple glow */
 .neu-glow-purple {
   box-shadow:
-    6px 6px 16px var(--color-shadow-dark),
-    -6px -6px 16px var(--color-shadow-light),
-    0 0 20px rgba(139, 92, 246, 0.15),
-    inset 0 0 20px rgba(139, 92, 246, 0.04);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+    6px 6px 14px var(--color-shadow-dark),
+    -6px -6px 14px var(--color-shadow-light),
+    0 0 18px rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.18);
 }
 
-/* Legacy class kept for compatibility */
+/* Legacy compatibility */
 .glass-panel {
-  background: rgba(22, 22, 46, 0.8);
+  background: rgba(238, 242, 247, 0.9);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .neon-border {
-  box-shadow: 0 0 12px rgba(0, 212, 255, 0.4), inset 0 0 12px rgba(0, 212, 255, 0.08);
-  border: 1px solid var(--color-primary);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.4);
 }
 
 /* ─── Scrollbar ───────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--color-background); }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 255, 0.2);
+  background: rgba(37, 99, 235, 0.25);
   border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.4); }
+::-webkit-scrollbar-thumb:hover { background: rgba(37, 99, 235, 0.5); }
