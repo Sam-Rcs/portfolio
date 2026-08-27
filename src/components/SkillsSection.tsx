@@ -35,7 +35,7 @@ export default function SkillsSection() {
           <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">
             tech.stack
           </p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             TECHNICAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">ARSENAL</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 rounded-full" />
@@ -73,7 +73,7 @@ export default function SkillsSection() {
               </div>
 
               {/* Name */}
-              <span className="text-xs font-mono tracking-wider text-[var(--color-muted)] group-hover:text-white transition-colors duration-300 text-center leading-tight">
+              <span className="text-xs font-mono tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors duration-300 text-center leading-tight">
                 {skill.name}
               </span>
             </motion.div>

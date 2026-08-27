@@ -15,7 +15,7 @@ export default function EducationSection() {
           className="mb-20"
         >
           <p className="text-[var(--color-muted)] font-mono text-xs tracking-[0.4em] uppercase mb-4">education.log</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             ACADEMIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-muted)] to-white">CORE</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-muted)] to-white mt-6 rounded-full" />
@@ -38,7 +38,7 @@ export default function EducationSection() {
               }}
             >
               <span className="font-mono text-xs text-[var(--color-muted)] tracking-widest block mb-2">GRADUATED</span>
-              <span className="font-black text-4xl text-white">2023</span>
+              <span className="font-black text-4xl text-[var(--color-foreground)]">2023</span>
             </div>
           </div>
 
@@ -56,7 +56,7 @@ export default function EducationSection() {
                 style={{ background: "radial-gradient(circle at 0% 50%, rgba(139,92,246,0.05) 0%, transparent 70%)" }}
               />
               <div className="relative z-10">
-                <h3 className="text-xl font-bold text-white mb-2">Bachelor of Computer Applications</h3>
+                <h3 className="text-xl font-bold text-[var(--color-foreground)] mb-2">Bachelor of Computer Applications</h3>
                 <h4 className="text-sm text-[var(--color-muted)] font-mono mb-5">Chhatrapati Shahu Ji Maharaj University · 2020–2023</h4>
                 <p className="text-[var(--color-muted)] text-sm leading-relaxed">
                   Focus on software engineering, database management systems, and core computer science fundamentals.

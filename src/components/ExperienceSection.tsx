@@ -15,7 +15,7 @@ export default function ExperienceSection() {
           className="mb-20"
         >
           <p className="text-[var(--color-secondary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">work.log</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             OPERATIONAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-accent)]">HISTORY</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-accent)] mt-6 rounded-full" />
@@ -64,7 +64,7 @@ export default function ExperienceSection() {
                 </span>
 
                 <div className="relative inline-block group/title mb-1">
-                  <h3 className="text-2xl font-bold text-white">Full Stack Developer</h3>
+                  <h3 className="text-2xl font-bold text-[var(--color-foreground)]">Full Stack Developer</h3>
                   <div
                     className="absolute -top-9 left-0 scale-0 group-hover/title:scale-100 transition-transform duration-200 rounded-xl px-3 py-1.5 text-[10px] font-mono whitespace-nowrap pointer-events-none z-20"
                     style={{

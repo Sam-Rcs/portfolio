@@ -92,17 +92,17 @@ const NodeChip = ({
   icon: React.ReactNode;
 }) => (
   <div
-    className="absolute z-40 rounded-2xl flex items-center gap-2 px-3 py-2 min-w-[120px]"
+    className="absolute z-50 rounded-2xl flex items-center gap-2 px-3 py-2 min-w-[130px] whitespace-nowrap"
     style={{
-      background: "var(--color-surface)",
-      boxShadow: `5px 5px 12px var(--color-shadow-dark), -5px -5px 12px var(--color-shadow-light), 0 0 16px ${color}22`,
+      background: "#ffffff",
+      boxShadow: `4px 4px 12px rgba(0,0,0,0.12), -2px -2px 8px rgba(255,255,255,0.9), 0 0 0 1px ${color}22`,
       border: `1px solid ${color}33`,
     }}
   >
     <div style={{ color }}>{icon}</div>
     <div className="flex flex-col">
       <span className="text-[8px] font-mono uppercase tracking-[0.2em]" style={{ color }}>{label}</span>
-      {items.map((t) => <span key={t} className="text-[10px] text-white font-semibold leading-tight">{t}</span>)}
+      {items.map((t) => <span key={t} className="text-[10px] text-slate-700 font-semibold leading-tight">{t}</span>)}
     </div>
   </div>
 );
@@ -111,7 +111,7 @@ export default function ProjectsSection() {
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="py-28 bg-[var(--color-background)] relative overflow-hidden">
+    <section id="projects" className="py-28 bg-[var(--color-background)] relative">
       <div className="max-w-6xl mx-auto px-4 relative z-10">
 
         {/* Header */}
@@ -122,7 +122,7 @@ export default function ProjectsSection() {
           className="text-center mb-20"
         >
           <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">deployed.systems</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             SYSTEM <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">PROJECTS</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 rounded-full" />
@@ -130,7 +130,7 @@ export default function ProjectsSection() {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 items-start pb-24 pt-16">
           {projects.map((project, index) => {
             const isExpanded = expandedProjectId === index;
 
@@ -141,7 +141,7 @@ export default function ProjectsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
-                className="relative flex justify-center"
+                className="relative flex justify-center overflow-visible"
               >
                 {/* Pop-out Architecture Nodes */}
                 <AnimatePresence>
@@ -159,7 +159,7 @@ export default function ProjectsSection() {
                           <NodeChip
                             label="Service"
                             items={project.details.backend}
-                            color="#00d4ff"
+                            color="#2563eb"
                             icon={<Server className="w-4 h-4" />}
                           />
                         </motion.div>
@@ -177,7 +177,7 @@ export default function ProjectsSection() {
                           <NodeChip
                             label="Client"
                             items={[...(project.details.frontend ?? []), ...(project.details.mobile ?? [])]}
-                            color="#8b5cf6"
+                            color="#7c3aed"
                             icon={project.details.mobile ? <Smartphone className="w-4 h-4" /> : <Code2 className="w-4 h-4" />}
                           />
                         </motion.div>
@@ -195,7 +195,7 @@ export default function ProjectsSection() {
                           <NodeChip
                             label="Database"
                             items={project.details.database}
-                            color="#6b7280"
+                            color="#64748b"
                             icon={<Database className="w-4 h-4" />}
                           />
                         </motion.div>
@@ -225,7 +225,7 @@ export default function ProjectsSection() {
 
                   <div className="relative z-10">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-lg font-bold text-white group-hover:text-[var(--color-primary)] transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-[var(--color-foreground)] group-hover:text-[var(--color-primary)] transition-colors duration-300">
                         {project.title}
                       </h3>
                       <span className="font-mono text-[10px] text-[var(--color-muted)] hidden sm:block shrink-0 ml-4 mt-1">
@@ -267,7 +267,7 @@ export default function ProjectsSection() {
             <div className="w-12 h-12 neu-raised rounded-2xl flex items-center justify-center mb-4 group-hover:neu-glow-cyan transition-all text-[var(--color-muted)] group-hover:text-[var(--color-primary)]">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </div>
-            <h3 className="text-base font-bold text-[var(--color-muted)] group-hover:text-white transition-colors mb-2">
+            <h3 className="text-base font-bold text-[var(--color-muted)] group-hover:text-[var(--color-foreground)] transition-colors mb-2">
               Waiting for your project...
             </h3>
             <p className="text-xs font-mono text-[var(--color-primary)] opacity-0 group-hover:opacity-100 transition-opacity">

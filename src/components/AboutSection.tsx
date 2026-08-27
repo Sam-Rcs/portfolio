@@ -15,7 +15,7 @@ export default function AboutSection() {
           className="mb-12"
         >
           <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">about.me</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">ARCHITECTURE</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mt-6 rounded-full" />
@@ -54,7 +54,7 @@ export default function AboutSection() {
             </p>
             <p>
               My philosophy is simple:{" "}
-              <strong className="text-white font-medium">
+              <strong className="text-[var(--color-foreground)] font-medium">
                 clean architecture, readable code, and systems that are easy to reason about six months later.
               </strong>
             </p>

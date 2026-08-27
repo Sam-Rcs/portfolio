@@ -40,7 +40,7 @@ export default function ArchitectureSection() {
           className="text-center mb-20"
         >
           <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">system.flow</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
             SYSTEM <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">FLOW</span>
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 mb-6 rounded-full" />
@@ -82,7 +82,7 @@ export default function ArchitectureSection() {
                     {node.icon}
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">{node.title}</h3>
+                    <h3 className="text-base font-bold text-[var(--color-foreground)]">{node.title}</h3>
                     <p className="text-xs text-[var(--color-muted)] font-mono">{node.subtitle}</p>
                   </div>
                 </div>
