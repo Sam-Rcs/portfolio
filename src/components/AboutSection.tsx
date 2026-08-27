@@ -1,25 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionBanner from "./SectionBanner";
 
 export default function AboutSection() {
   return (
     <section id="about" className="py-28 bg-[var(--color-background)]">
       <div className="max-w-4xl mx-auto px-4">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">about.me</p>
-          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
-            THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">ARCHITECTURE</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mt-6 rounded-full" />
-        </motion.div>
+        <SectionBanner
+          eyebrow="about.me"
+          title="THE"
+          highlight="ARCHITECTURE"
+          gradient="from-blue-500 to-violet-500"
+          description="Full-stack mindset. End-to-end ownership. Always shipping."
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

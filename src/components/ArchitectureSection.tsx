@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Database, Server, Smartphone, Globe, Lock } from "lucide-react";
+import SectionBanner from "./SectionBanner";
 
 const flowNodes = [
   {
@@ -33,21 +34,13 @@ export default function ArchitectureSection() {
       <div className="max-w-4xl mx-auto px-4 relative z-10">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">system.flow</p>
-          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
-            SYSTEM <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">FLOW</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 mb-6 rounded-full" />
-          <p className="text-[var(--color-muted)] max-w-xl mx-auto text-sm leading-relaxed">
-            A typical request path — secure JWT auth, role-based access control, and data persistence across my preferred stack.
-          </p>
-        </motion.div>
+        <SectionBanner
+          eyebrow="system.flow"
+          title="SYSTEM"
+          highlight="FLOW"
+          gradient="from-cyan-500 to-blue-600"
+          description="JWT auth · Role-based access control · Data persistence across the preferred stack."
+        />
 
         {/* Flow Diagram */}
         <div className="flex flex-col items-center max-w-sm mx-auto gap-0">

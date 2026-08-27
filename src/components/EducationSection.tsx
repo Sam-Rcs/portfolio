@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionBanner from "./SectionBanner";
 
 export default function EducationSection() {
   return (
@@ -8,18 +9,13 @@ export default function EducationSection() {
       <div className="max-w-5xl mx-auto px-4">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <p className="text-[var(--color-muted)] font-mono text-xs tracking-[0.4em] uppercase mb-4">education.log</p>
-          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
-            ACADEMIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-muted)] to-white">CORE</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-muted)] to-white mt-6 rounded-full" />
-        </motion.div>
+        <SectionBanner
+          eyebrow="education.log"
+          title="ACADEMIC"
+          highlight="CORE"
+          gradient="from-slate-500 to-slate-700"
+          description="Bachelor of Computer Applications · 2020–2023"
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

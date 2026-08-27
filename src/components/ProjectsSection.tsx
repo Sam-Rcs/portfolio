@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Code2, Server, Database, Smartphone } from "lucide-react";
+import SectionBanner from "./SectionBanner";
 
 type ProjectType = {
   title: string;
@@ -114,20 +115,13 @@ export default function ProjectsSection() {
     <section id="projects" className="py-28 bg-[var(--color-background)] relative">
       <div className="max-w-6xl mx-auto px-4 relative z-10">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">deployed.systems</p>
-          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
-            SYSTEM <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">PROJECTS</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 rounded-full" />
-          <p className="text-[var(--color-muted)] font-mono text-xs mt-4">// tap a project to reveal the architecture</p>
-        </motion.div>
+        <SectionBanner
+          eyebrow="deployed.systems"
+          title="SYSTEM"
+          highlight="PROJECTS"
+          gradient="from-blue-600 to-cyan-500"
+          description="Tap a project to inspect its architecture details."
+        />
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 items-start pb-24 pt-16">

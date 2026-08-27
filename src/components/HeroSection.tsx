@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MessageCircle } from "lucide-react";
+import CodeSnippet from "./CodeSnippet";
 
 export default function HeroSection() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -248,6 +249,16 @@ export default function HeroSection() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Animated Code Snippet */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="mt-16 w-full"
+        >
+          <CodeSnippet />
+        </motion.div>
       </div>
 
       {/* Subtle grid overlay */}

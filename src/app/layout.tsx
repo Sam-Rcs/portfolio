@@ -3,6 +3,7 @@ import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import EasterEggs from "@/components/EasterEggs";
+import FloatingNav from "@/components/FloatingNav";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased cursor-none`}>
         <CustomCursor />
         <EasterEggs />
+        <FloatingNav />
         {children}
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Code, Database, Server, Layout, GitBranch, Terminal } from "lucide-react";
+import SectionBanner from "./SectionBanner";
 
 const skills = [
   { name: "Java",         icon: <Terminal className="w-6 h-6" />,  tooltip: "Brewed with unreasonable amounts of coffee." },
@@ -26,20 +27,13 @@ export default function SkillsSection() {
       <div className="max-w-6xl mx-auto px-4 relative z-10">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <p className="text-[var(--color-primary)] font-mono text-xs tracking-[0.4em] uppercase mb-4">
-            tech.stack
-          </p>
-          <h2 className="text-4xl md:text-6xl font-black text-[var(--color-foreground)] tracking-tight">
-            TECHNICAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">ARSENAL</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mx-auto mt-6 rounded-full" />
-        </motion.div>
+        <SectionBanner
+          eyebrow="tech.stack"
+          title="TECHNICAL"
+          highlight="ARSENAL"
+          gradient="from-violet-500 to-blue-500"
+          description="14 technologies I use to ship real products."
+        />
 
         {/* Skill Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
