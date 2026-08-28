@@ -2,25 +2,39 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── White Neumorphism Palette ── */
+  /* ── Light (White Neumorphism) ── */
   --color-background:    #eaeef3;
   --color-surface:       #eef2f7;
   --color-shadow-light:  #ffffff;
   --color-shadow-dark:   #c5ccd6;
 
-  /* ── Accent Colors (rich, not washed out on white) ── */
-  --color-primary:    #2563eb;   /* deep electric blue   */
-  --color-secondary:  #e11d48;   /* vivid rose red        */
-  --color-accent:     #7c3aed;   /* rich violet           */
+  --color-primary:    #2563eb;
+  --color-secondary:  #e11d48;
+  --color-accent:     #7c3aed;
 
-  /* ── Text ── */
-  --color-foreground: #1e293b;   /* dark slate — max readability */
-  --color-muted:      #64748b;   /* slate 500 */
+  --color-foreground: #1e293b;
+  --color-muted:      #64748b;
 
   --font-sans: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* ─── Dark Neumorphism Override ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-background:    #131320;
+  --color-surface:       #181828;
+  --color-shadow-light:  #22224a;
+  --color-shadow-dark:   #0b0b16;
+
+  --color-primary:    #38bdf8;   /* sky blue — pops on dark   */
+  --color-secondary:  #f43f5e;   /* vivid rose                */
+  --color-accent:     #a78bfa;   /* soft violet               */
+
+  --color-foreground: #e2e8f0;
+  --color-muted:      #8892b0;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -31,33 +45,42 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    /* Smooth theme transition */
+    transition:
+      background-color 0.5s ease,
+      color 0.4s ease;
   }
 
   ::selection {
-    background-color: rgba(37, 99, 235, 0.15);
+    background-color: rgba(37, 99, 235, 0.2);
     color: var(--color-primary);
+  }
+
+  [data-theme="dark"] ::selection {
+    background-color: rgba(56, 189, 248, 0.25);
   }
 }
 
-/* ─── Neumorphism Core Utilities ──────────────────────────────────────── */
+/* ─── Neumorphism Core Utilities ──────────────────────────────────────────── */
 
-/* Raised element — pops out of the white surface */
+/* Raised — pops out of surface */
 .neu-raised {
   background: var(--color-surface);
   box-shadow:
     6px 6px 14px var(--color-shadow-dark),
     -6px -6px 14px var(--color-shadow-light);
   border: none;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, background 0.5s ease;
 }
 
-/* Inset element — pressed into surface */
+/* Inset — pressed into surface */
 .neu-inset {
   background: var(--color-surface);
   box-shadow:
     inset 4px 4px 10px var(--color-shadow-dark),
     inset -4px -4px 10px var(--color-shadow-light);
   border: none;
+  transition: background 0.5s ease;
 }
 
 /* Flat card */
@@ -67,9 +90,10 @@
     4px 4px 10px var(--color-shadow-dark),
     -4px -4px 10px var(--color-shadow-light);
   border: 1px solid rgba(37, 99, 235, 0.08);
+  transition: background 0.5s ease;
 }
 
-/* Hover pressed state */
+/* Hover pressed */
 .neu-hover:hover {
   box-shadow:
     inset 3px 3px 8px var(--color-shadow-dark),
@@ -84,7 +108,7 @@
     5px 5px 12px var(--color-shadow-dark),
     -5px -5px 12px var(--color-shadow-light);
   border: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease, background 0.5s ease;
 }
 .neu-btn:active {
   box-shadow:
@@ -93,37 +117,49 @@
   transform: scale(0.97);
 }
 
-/* Glowing accent — blue glow */
+/* Glow — blue */
 .neu-glow-cyan {
   box-shadow:
     6px 6px 14px var(--color-shadow-dark),
     -6px -6px 14px var(--color-shadow-light),
-    0 0 18px rgba(37, 99, 235, 0.18);
+    0 0 20px rgba(37, 99, 235, 0.2);
   border: 1px solid rgba(37, 99, 235, 0.2);
 }
+[data-theme="dark"] .neu-glow-cyan {
+  box-shadow:
+    6px 6px 14px var(--color-shadow-dark),
+    -6px -6px 14px var(--color-shadow-light),
+    0 0 24px rgba(56, 189, 248, 0.3);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
 
-/* Glowing accent — purple glow */
+/* Glow — purple */
 .neu-glow-purple {
   box-shadow:
     6px 6px 14px var(--color-shadow-dark),
     -6px -6px 14px var(--color-shadow-light),
-    0 0 18px rgba(124, 58, 237, 0.15);
+    0 0 18px rgba(124, 58, 237, 0.18);
   border: 1px solid rgba(124, 58, 237, 0.18);
 }
 
-/* Legacy compatibility */
+/* Glass */
 .glass-panel {
   background: rgba(238, 242, 247, 0.9);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: background 0.5s ease;
+}
+[data-theme="dark"] .glass-panel {
+  background: rgba(24, 24, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .neon-border {
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.3), inset 0 0 8px rgba(37, 99, 235, 0.06);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.35), inset 0 0 8px rgba(37, 99, 235, 0.06);
   border: 1px solid rgba(37, 99, 235, 0.4);
 }
 
-/* ─── Scrollbar ───────────────────────────────────────────────────────── */
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--color-background); }
 ::-webkit-scrollbar-thumb {
@@ -131,3 +167,7 @@
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(37, 99, 235, 0.5); }
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+}

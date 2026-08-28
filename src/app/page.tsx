@@ -8,7 +8,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 
 export default function Home() {
   return (
-    <main className="bg-[#050505] text-white min-h-screen font-sans selection:bg-[var(--color-primary)] selection:text-black">
+    <main className="bg-[var(--color-background)] text-[var(--color-foreground)] min-h-screen font-sans transition-colors duration-500">
       <HeroSection />
       <AboutSection />
       <ArchitectureSection />

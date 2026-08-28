@@ -4,6 +4,7 @@ import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import EasterEggs from "@/components/EasterEggs";
 import FloatingNav from "@/components/FloatingNav";
+import LampToggle from "@/components/LampToggle";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -29,6 +30,7 @@ export default function RootLayout({
         <CustomCursor />
         <EasterEggs />
         <FloatingNav />
+        <LampToggle />
         {children}
       </body>
     </html>
