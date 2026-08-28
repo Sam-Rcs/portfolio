@@ -1,178 +1,175 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useMotionValueEvent, animate } from "framer-motion";
 
-const LAMP_H = 44;        // height of the SVG lamp shade
-const ROPE_BASE = 52;     // default rope length (not pulled)
-const KNOB_SIZE = 20;     // diameter of the pull knob
-const PULL_THRESHOLD = 90; // drag distance to trigger toggle
+const BASE_LEN  = 72;    // natural rope length
+const DOT_COUNT = 14;    // rope dot beads
+const AX        = 14;    // anchor x inside SVG coords
+const THRESHOLD = 35;   // ky (pixels) needed to toggle (lowered for responsive feel)
+
+// ── Beaded dot rope: draws dots from anchor → knob ──────────────────────────
+function DotRope({ toX, toY, color }: { toX: number; toY: number; color: string }) {
+  return (
+    <>
+      {Array.from({ length: DOT_COUNT }, (_, i) => {
+        const t = (i + 1) / (DOT_COUNT + 1);
+        const x = AX + (toX - AX) * t;
+        const y = (toY) * t;
+        const big = i % 4 === 0;
+        return (
+          <circle
+            key={i}
+            cx={x}
+            cy={y}
+            r={big ? 3.2 : 2}
+            fill={big ? color : color + "cc"}
+          />
+        );
+      })}
+    </>
+  );
+}
 
 export default function LampToggle() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark,   setIsDark]   = useState(false);
   const [toggling, setToggling] = useState(false);
+  const [end,      setEnd]      = useState({ x: AX, y: BASE_LEN });
 
-  // The single motion value shared between drag and rope stretch
-  const y = useMotionValue(0);
+  // Framer-motion drag values (x/y offsets from rest position)
+  const kx = useMotionValue(0);
+  const ky = useMotionValue(0);
 
-  // Rope visual height grows with drag
-  const ropeHeight = useTransform(y, (yVal) => ROPE_BASE + Math.max(0, yVal));
+  // Rebuild rope on every drag frame
+  useMotionValueEvent(kx, "change", () =>
+    setEnd({ x: AX + kx.get(), y: BASE_LEN + ky.get() })
+  );
+  useMotionValueEvent(ky, "change", () =>
+    setEnd({ x: AX + kx.get(), y: BASE_LEN + ky.get() })
+  );
 
-  // Bulb glow brightens as rope is pulled past threshold
-  const glowOpacity = useTransform(y, [0, PULL_THRESHOLD], [0, 1], { clamp: true });
-  const glowScale   = useTransform(y, [0, PULL_THRESHOLD], [0.8, 1.4], { clamp: true });
-
-  // Load saved theme on mount
   useEffect(() => {
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved === "dark") {
+    const s = localStorage.getItem("portfolio-theme");
+    if (s === "dark") {
       setIsDark(true);
       document.documentElement.setAttribute("data-theme", "dark");
     }
   }, []);
 
-  const handleDragEnd = () => {
-    const pulled = y.get();
-    if (pulled >= PULL_THRESHOLD) {
-      const next = !isDark;
-      setIsDark(next);
-      setToggling(true);
-      document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
-      localStorage.setItem("portfolio-theme", next ? "dark" : "light");
-      setTimeout(() => setToggling(false), 700);
-    }
-    // Elastic snap back
-    animate(y, 0, {
-      type: "spring",
-      stiffness: 280,
-      damping: 18,
-      mass: 0.9,
-    });
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    setToggling(true);
+    document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
+    localStorage.setItem("portfolio-theme", next ? "dark" : "light");
+    setTimeout(() => setToggling(false), 600);
   };
 
-  const mount   = isDark ? "#1e2a3a" : "#c8d1dc";
-  const shade   = isDark ? "#1a2234" : "#dde5f0";
-  const shadeBd = isDark ? "#2a3a52" : "#b8c4d4";
-  const wire    = isDark ? "#334155" : "#94a3b8";
-  const ropeClr = isDark ? "#475569" : "#94a3b8";
-  const knobBg  = isDark ? "#1e293b" : "#dde5f0";
-  const knobRing = isDark ? "#38bdf8" : "#94a3b8";
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => {
+    const pulledY = ky.get();
+    const offsetY = info?.offset?.y ?? 0;
+    if (pulledY >= THRESHOLD || offsetY >= THRESHOLD) {
+      toggleTheme();
+    }
+    // Spring back
+    animate(kx, 0, { type: "spring", stiffness: 240, damping: 15, mass: 1 });
+    animate(ky, 0, { type: "spring", stiffness: 240, damping: 15, mass: 1 });
+  };
+
+  const dotColor    = isDark ? "#38bdf8" : "#64748b";
+  const anchorColor = isDark ? "#38bdf8" : "#94a3b8";
+  const knobBg      = isDark ? "#0f172a" : "#f1f5f9";
+  const knobBorder  = isDark ? "#38bdf8" : "#94a3b8";
+  const glowColor   = isDark ? "rgba(56,189,248,0.7)" : "rgba(251,191,36,0.7)";
 
   return (
-    <div
-      className="fixed top-0 left-1/2 -translate-x-1/2 z-[500] flex flex-col items-center select-none"
-      style={{ width: 60 }}
-    >
-      {/* ── Ceiling Mount ── */}
+    <>
+      {/* Thin gradient strip — looks like the rope is attached to the top edge */}
       <div
-        className="w-10 h-2.5 rounded-b-lg"
-        style={{ background: mount, transition: "background 0.5s ease" }}
+        className="fixed top-0 right-0 z-[499] pointer-events-none"
+        style={{
+          width: 80,
+          height: 2,
+          background: `linear-gradient(to left, ${anchorColor}99, transparent)`,
+          transition: "background 0.5s ease",
+        }}
       />
 
-      {/* ── Wire from ceiling into lamp ── */}
-      <div className="w-px h-3" style={{ background: wire, transition: "background 0.5s ease" }} />
-
-      {/* ── Lamp Shade SVG ── */}
-      <svg
-        width="60"
-        height={LAMP_H}
-        viewBox="0 0 60 44"
-        fill="none"
-        style={{ filter: isDark ? "drop-shadow(0 4px 12px rgba(56,189,248,0.15))" : "none", transition: "filter 0.5s ease" }}
-      >
-        {/* Shade body (trapezoid) */}
-        <path d="M12 4 L48 4 L42 36 L18 36 Z" fill={shade} stroke={shadeBd} strokeWidth="1.2" style={{ transition: "fill 0.5s ease, stroke 0.5s ease" }} />
-        {/* Top cap */}
-        <rect x="8" y="1" width="44" height="6" rx="3" fill={mount} style={{ transition: "fill 0.5s ease" }} />
-
-        {/* Bulb glow ring — visible when pulling */}
-        <motion.circle
-          cx="30" cy="37" r="10"
-          fill={isDark ? "rgba(251,191,36,0.25)" : "rgba(253,224,71,0.3)"}
-          style={{ opacity: glowOpacity, scale: glowScale }}
-        />
-
-        {/* Bulb body */}
-        <circle
-          cx="30" cy="37" r="5"
-          fill={isDark ? "#fde68a" : "#f1f5f9"}
-          style={{
-            filter: isDark
-              ? "drop-shadow(0 0 8px #fbbf24)"
-              : toggling ? "drop-shadow(0 0 6px #fbbf24)" : "none",
-            transition: "filter 0.5s ease, fill 0.5s ease",
-          }}
-        />
-      </svg>
-
-      {/* ─── Rope + Knob layout using absolute positioning inside relative box ─── */}
+      {/* ── Rope container — fixed top-right ── */}
       <div
-        className="relative flex flex-col items-center"
-        style={{ width: 60, height: ROPE_BASE + KNOB_SIZE + 160 }} // tall enough for max pull
+        className="fixed top-0 right-5 z-[500]"
+        style={{ width: 30, pointerEvents: "none" }}
       >
-        {/* Stretchy Rope — grows with drag */}
-        <motion.div
-          className="absolute"
+        {/* Anchor dot — attaches to top bar */}
+        <div
           style={{
-            top: 0,
-            left: "50%",
-            marginLeft: -1,
-            width: 2,
-            height: ropeHeight,
-            background: `linear-gradient(to bottom, ${ropeClr}, ${ropeClr}88)`,
-            borderRadius: 1,
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            background: anchorColor,
+            margin: "0 auto",
+            boxShadow: isDark ? `0 0 6px ${anchorColor}` : "none",
             transition: "background 0.5s ease",
           }}
         />
 
-        {/* Pull Knob — draggable, sits at rope end */}
-        <div
-          className="absolute"
+        {/* SVG overlay: the dot rope (overflow:visible lets it swing freely) */}
+        <svg
           style={{
-            top: ROPE_BASE - KNOB_SIZE / 2,
-            left: "50%",
-            marginLeft: -KNOB_SIZE / 2,
+            position: "absolute",
+            top: 6,
+            left: 0,
+            width: 30,
+            height: BASE_LEN,
+            overflow: "visible",
+            pointerEvents: "none",
           }}
         >
-          <motion.div
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0, bottom: 0.75 }}
-            style={{ y }}
-            onDragEnd={handleDragEnd}
-            className="cursor-grab active:cursor-grabbing"
-            title={isDark ? "Pull to turn on lights ☀️" : "Pull to turn off lights 🌙"}
-            whileHover={{ scale: 1.15 }}
-          >
-            <motion.div
-              className="rounded-full flex items-center justify-center"
-              style={{
-                width: KNOB_SIZE,
-                height: KNOB_SIZE,
-                background: knobBg,
-                boxShadow: isDark
-                  ? `0 0 0 2px ${knobRing}, 0 2px 8px rgba(0,0,0,0.5), ${toggling ? "0 0 16px rgba(56,189,248,0.8)" : ""}`
-                  : `0 0 0 2px ${knobRing}, 0 2px 8px rgba(0,0,0,0.15), ${toggling ? "0 0 16px rgba(251,191,36,0.6)" : ""}`,
-                transition: "background 0.5s ease, box-shadow 0.3s ease",
-              }}
-              animate={toggling ? { scale: [1, 1.5, 1] } : {}}
-              transition={{ duration: 0.4 }}
-            >
-              <span style={{ fontSize: 9, lineHeight: 1 }}>
-                {isDark ? "🌙" : "☀️"}
-              </span>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
+          <DotRope toX={end.x} toY={end.y} color={dotColor} />
+        </svg>
 
-      {/* Hint text */}
-      <p
-        className="text-[8px] font-mono tracking-[0.2em] uppercase mt-1 opacity-30 hover:opacity-60 transition-opacity"
-        style={{ color: "var(--color-muted)" }}
-      >
-        pull
-      </p>
-    </div>
+        {/* ── Draggable knob — positioned at rope natural end ── */}
+        <motion.div
+          drag
+          dragConstraints={{ top: -8, bottom: 220, left: -140, right: 60 }}
+          dragElastic={{ top: 0.4, bottom: 0.8, left: 0.75, right: 0.65 }}
+          onDragEnd={handleDragEnd}
+          onTap={() => {
+            if (Math.abs(ky.get()) < 15 && Math.abs(kx.get()) < 15) {
+              toggleTheme();
+            }
+          }}
+          style={{
+            x: kx,
+            y: ky,
+            position: "absolute",
+            top: BASE_LEN - 4,
+            left: "50%",
+            marginLeft: -14,
+            pointerEvents: "auto",
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: knobBg,
+            border: `2px solid ${knobBorder}`,
+            boxShadow: toggling
+              ? `0 0 22px ${glowColor}, 0 4px 12px rgba(0,0,0,0.2)`
+              : `0 3px 10px rgba(0,0,0,0.15)`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 13,
+            cursor: "grab",
+            userSelect: "none",
+            transition: "background 0.5s ease, border-color 0.5s ease",
+          }}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.9, cursor: "grabbing" }}
+          title="Pull down to toggle dark / light"
+        >
+          {isDark ? "🌙" : "☀️"}
+        </motion.div>
+      </div>
+    </>
   );
 }
