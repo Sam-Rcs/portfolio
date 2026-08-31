@@ -2,51 +2,45 @@
 
 import { motion } from "framer-motion";
 import SectionBanner from "./SectionBanner";
-import DualityProfile from "./DualityProfile";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-28 bg-[var(--color-background)] transition-colors duration-500">
-      <div className="max-w-5xl mx-auto px-4">
+    <section id="about" className="py-28 bg-[var(--color-background)]">
+      <div className="max-w-4xl mx-auto px-4">
         <SectionBanner
-          eyebrow="about.me // duality"
+          eyebrow="about.me"
           title="THE"
-          highlight="DEVELOPER & BEYOND"
-          gradient="from-blue-500 via-indigo-500 to-rose-500"
-          description="High-performance backend engineering meets high-octane real life."
+          highlight="ARCHITECTURE"
+          gradient="from-blue-500 to-violet-500"
+          description="Full-stack mindset. End-to-end ownership. Always shipping."
         />
 
-        {/* The Two Sides / Duality Profile Component */}
-        <DualityProfile />
-
-        {/* Philosophy & Architecture Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="rounded-3xl p-8 md:p-12 relative overflow-hidden group mt-12"
+          className="rounded-2xl p-8 md:p-12 relative overflow-hidden group"
           style={{
             background: "var(--color-surface)",
-            boxShadow: "10px 10px 25px var(--color-shadow-dark), -10px -10px 25px var(--color-shadow-light)",
-            border: "1px solid rgba(0,0,0,0.04)",
+            boxShadow: "10px 10px 24px var(--color-shadow-dark), -10px -10px 24px var(--color-shadow-light)",
+            border: "1px solid rgba(0,212,255,0.08)",
           }}
         >
           {/* Gradient sweep on hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-3xl"
-            style={{ background: "radial-gradient(ellipse at 0% 0%, rgba(37,99,235,0.06) 0%, transparent 60%)" }}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-2xl"
+            style={{ background: "radial-gradient(ellipse at 0% 0%, rgba(0,212,255,0.06) 0%, transparent 60%)" }}
           />
 
           {/* Decorative quote mark */}
           <div
             className="absolute top-6 right-8 text-7xl font-black leading-none select-none pointer-events-none"
-            style={{ color: "rgba(37,99,235,0.08)", fontFamily: "Georgia, serif" }}
+            style={{ color: "rgba(0,212,255,0.08)", fontFamily: "Georgia, serif" }}
           >
             &ldquo;
           </div>
 
-          <div className="space-y-6 text-[var(--color-foreground)] text-base md:text-lg leading-relaxed relative z-10">
+          <div className="space-y-6 text-[var(--color-foreground)] text-lg md:text-xl leading-relaxed font-light relative z-10">
             <p>
               I&apos;m a full-stack developer who moves comfortably across the entire stack. I specialize in building
               secure REST APIs, designing robust authentication systems, and shipping responsive,
@@ -54,7 +48,7 @@ export default function AboutSection() {
             </p>
             <p>
               My philosophy is simple:{" "}
-              <strong className="text-[var(--color-foreground)] font-semibold">
+              <strong className="text-[var(--color-foreground)] font-medium">
                 clean architecture, readable code, and systems that are easy to reason about six months later.
               </strong>
             </p>
@@ -66,7 +60,7 @@ export default function AboutSection() {
           </div>
 
           {/* Signature line */}
-          <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/5 flex items-center gap-3">
+          <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black text-[var(--color-primary)]"
               style={{
