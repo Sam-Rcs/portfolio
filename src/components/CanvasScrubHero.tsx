@@ -265,7 +265,7 @@ export default function CanvasScrubHero() {
   }, [isLoaded, drawFrame]);
 
   const scrollToNextSection = () => {
-    const el = document.getElementById("projects-matrix");
+    const el = document.getElementById("exit-3d");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -603,7 +603,7 @@ export default function CanvasScrubHero() {
                   onClick={scrollToNextSection}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-black bg-gradient-to-r from-amber-400 via-orange-300 to-cyan-400 hover:scale-105 active:scale-95 transition-all shadow-[0_0_35px_rgba(245,158,11,0.4)] cursor-pointer"
                 >
-                  <span>Explore Project Matrix Below</span>
+                  <span>Scroll to Exit 3D</span>
                   <MoveRight className="w-4 h-4" />
                 </button>
 
