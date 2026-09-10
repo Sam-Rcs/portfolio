@@ -1,28 +1,22 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Sparkles, ChevronDown, Zap, Play, RotateCcw } from "lucide-react";
+import { Sparkles, ChevronDown, Zap, RotateCcw } from "lucide-react";
 import GalaxyStarfield from "./GalaxyStarfield";
 
-interface GoldenBulletShowcaseProps {
-  isDark: boolean;
-}
-
-export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcaseProps) {
+export default function GoldenBulletShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [manualProgress, setManualProgress] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [bulletSpark, setBulletSpark] = useState<{ x: number; y: number; active: boolean }>({
-    x: 0,
-    y: 0,
-    active: false,
-  });
+
+  // Smooth lerped progress value for 60-120fps buttery smoothness
+  const smoothProgressRef = useRef(0);
+  const [smoothProgress, setSmoothProgress] = useState(0);
 
   const letters = ["S", "A", "M", "E", "E", "R", "\u00A0", "K", "H", "A", "N"];
 
-  // Scroll listener
+  // Raw scroll listener
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
@@ -41,13 +35,13 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const progress = manualProgress !== null ? manualProgress : scrollProgress;
+  const targetProgress = manualProgress !== null ? manualProgress : scrollProgress;
 
-  // Auto-play / fire animation
+  // Auto-play animation
   useEffect(() => {
     if (!isPlaying) return;
     let startTime: number | null = null;
-    const duration = 2200; // ms
+    const duration = 2400;
 
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -66,145 +60,148 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
     return () => cancelAnimationFrame(id);
   }, [isPlaying]);
 
-  // Bullet X Position calculation (-10vw to 110vw)
-  // Bullet active between progress 0.15 and 0.75
-  const bulletT = Math.min(Math.max((progress - 0.15) / 0.6, 0), 1);
-  const bulletXPercent = -10 + bulletT * 120; // in vw
-  const isBulletActive = progress >= 0.15 && progress <= 0.8;
-
-  // Update spark coordinates for canvas
+  // Smooth 60-120 FPS Lerp Loop to guarantee zero stutter
   useEffect(() => {
-    if (isBulletActive && typeof window !== "undefined") {
-      const screenX = (bulletXPercent / 100) * window.innerWidth;
-      const screenY = window.innerHeight * 0.5;
-      setBulletSpark({ x: screenX, y: screenY, active: true });
-    } else {
-      setBulletSpark((prev) => ({ ...prev, active: false }));
-    }
-  }, [bulletXPercent, isBulletActive]);
+    let animId: number;
 
-  const fireBullet = () => {
+    const loop = () => {
+      const diff = targetProgress - smoothProgressRef.current;
+      smoothProgressRef.current += diff * 0.12; // buttery spring easing
+      setSmoothProgress(smoothProgressRef.current);
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, [targetProgress]);
+
+  // Invisible cutting point X position (-5vw to 105vw)
+  // Active between progress 0.15 and 0.78
+  const sliceT = Math.min(Math.max((smoothProgress - 0.14) / 0.62, 0), 1);
+  const cuttingHeadXPercent = -5 + sliceT * 110; // in vw
+  const isBeamActive = smoothProgress >= 0.14 && smoothProgress <= 0.85;
+
+  const fireBeam = () => {
     setManualProgress(0);
+    smoothProgressRef.current = 0;
     setIsPlaying(true);
   };
 
   return (
-    <section ref={containerRef} className="relative h-[380vh]">
-      {/* Dynamic Galaxy Background */}
-      <GalaxyStarfield isDark={isDark} bulletSpark={bulletSpark} />
+    <section ref={containerRef} className="relative h-[380vh] bg-[#030201]">
+      {/* 100% Pure Dark Cosmic Galaxy Starfield */}
+      <GalaxyStarfield isDark={true} />
 
       {/* Sticky Viewport */}
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden select-none">
         
-        {/* Golden Galactic Ambient Core */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] rounded-full blur-[140px] pointer-events-none -z-10 transition-colors duration-700"
-          style={{
-            background: isDark
-              ? "radial-gradient(ellipse at center, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.05) 50%, transparent 70%)"
-              : "radial-gradient(ellipse at center, rgba(245, 158, 11, 0.12) 0%, rgba(251, 191, 36, 0.04) 50%, transparent 70%)",
-          }}
-        />
+        {/* Golden Galactic Core Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] rounded-full blur-[140px] pointer-events-none -z-10 bg-[radial-gradient(ellipse_at_center,_rgba(251,191,36,0.18)_0%,_rgba(217,119,6,0.06)_45%,_transparent_70%)]" />
 
-        {/* Top Eyebrow Tag */}
+        {/* Top Minimalist Tag */}
         <div
-          className="absolute top-16 sm:top-20 text-center z-20 transition-all duration-500"
-          style={{ opacity: progress < 0.2 ? 1 : 0.4 }}
+          className="absolute top-16 sm:top-20 text-center z-20 transition-opacity duration-700"
+          style={{ opacity: smoothProgress < 0.2 ? 1 : 0.35 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 text-amber-400 mb-2 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 text-amber-400 mb-2 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Black &amp; Golden Galaxy Edition</span>
+            <span>Black &amp; Golden Kinetic Galaxy</span>
           </div>
           <p className="text-xs font-mono text-neutral-400">
-            {progress < 0.2
-              ? "Scroll down to launch the golden projectile through the name"
-              : "Kinetic piercing in progress"}
+            {smoothProgress < 0.15
+              ? "Scroll down to slice the name with the invisible supersonic beam"
+              : "Supersonic incision in progress"}
           </p>
         </div>
 
-        {/* Target Laser Trajectory Line (Midline) */}
+        {/* Midline Incision Guide (Subtle Hairline) */}
         <div
-          className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[1px] pointer-events-none z-10 transition-opacity duration-300"
+          className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[1px] pointer-events-none z-10"
           style={{
-            background: isDark
-              ? "linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.2) 20%, rgba(255, 215, 0, 0.6) 50%, rgba(251, 191, 36, 0.2) 80%, transparent 100%)"
-              : "linear-gradient(90deg, transparent 0%, rgba(217, 119, 6, 0.2) 20%, rgba(180, 83, 9, 0.5) 50%, rgba(217, 119, 6, 0.2) 80%, transparent 100%)",
-            opacity: isBulletActive ? 1 : 0.3,
-            boxShadow: isBulletActive ? "0 0 12px rgba(255, 215, 0, 0.8)" : "none",
+            background: "linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.08) 20%, rgba(255, 215, 0, 0.3) 50%, rgba(251, 191, 36, 0.08) 80%, transparent 100%)",
+            opacity: isBeamActive ? 0.6 : 0.15,
           }}
         />
 
-        {/* --- MAIN GIANT NAME: "SAMEER KHAN" WITH SLICED HALVES --- */}
-        <div className="relative flex items-center justify-center font-black tracking-tighter text-5xl sm:text-7xl md:text-8xl lg:text-9xl z-20">
+        {/* --- LUXURY DISPLAY TYPOGRAPHY: "SAMEER KHAN" --- */}
+        <div
+          className="relative flex items-center justify-center font-extrabold tracking-[-0.04em] text-5xl sm:text-7xl md:text-8xl lg:text-9xl z-20 select-none"
+          style={{
+            fontFamily:
+              'var(--font-outfit), -apple-system, BlinkMacSystemFont, "Syne", "Cinzel", sans-serif',
+          }}
+        >
           {letters.map((char, index) => {
             if (char === "\u00A0") {
-              return <span key={index} className="w-4 sm:w-8 md:w-12 inline-block" />;
+              return <span key={index} className="w-5 sm:w-10 md:w-14 inline-block" />;
             }
 
-            // Calculate letter position relative to screen (normalized 0 to 1)
-            const letterPos = 0.25 + (index / letters.length) * 0.5; // letter spread in center 50%
-            const isImpacted = bulletT > letterPos;
-            const impactDistance = bulletT - letterPos;
+            // Normal distribution position along the center span
+            const letterPos = 0.18 + (index / letters.length) * 0.64;
+            const impactDelta = sliceT - letterPos;
+            const isSliced = impactDelta > 0;
 
-            // Split offset calculation based on impact
-            const splitAmount = isImpacted ? Math.min(impactDistance * 80, 48) : 0;
-            const splitRotate = isImpacted ? Math.min(impactDistance * 20, 7) : 0;
+            // Ultra-smooth sigmoidal displacement wave (buttery physics)
+            const liftFactor = isSliced
+              ? Math.min(1, Math.max(0, impactDelta * 4.5))
+              : 0;
+            const splitY = liftFactor * 40; // px offset
+            const splitRot = liftFactor * 4.0; // degrees
 
             return (
-              <div key={index} className="relative inline-block leading-none mx-[1px] sm:mx-1">
+              <div key={index} className="relative inline-block leading-none mx-[2px] sm:mx-1">
                 
-                {/* TOP HALF OF LETTER */}
+                {/* TOP HALF OF GLYPH */}
                 <div
-                  className="transition-transform duration-75"
                   style={{
-                    transform: `translateY(-${splitAmount}px) rotate(-${splitRotate}deg)`,
+                    transform: `translateY(-${splitY}px) rotate(-${splitRot}deg)`,
                     clipPath: "polygon(0 0, 100% 0, 100% 50%, 0 50%)",
+                    willChange: "transform",
                   }}
                 >
                   <span
                     className="block text-transparent bg-clip-text"
                     style={{
-                      backgroundImage: isDark
-                        ? "linear-gradient(180deg, #fff7ed 0%, #fde047 30%, #eab308 70%, #854d0e 100%)"
-                        : "linear-gradient(180deg, #78350f 0%, #b45309 40%, #d97706 70%, #92400e 100%)",
-                      filter: isImpacted
-                        ? "drop-shadow(0 0 20px rgba(255,215,0,0.8))"
-                        : "drop-shadow(0 4px 15px rgba(0,0,0,0.5))",
+                      backgroundImage:
+                        "linear-gradient(180deg, #ffffff 0%, #fef08a 25%, #eab308 65%, #a16207 100%)",
+                      filter: isSliced
+                        ? "drop-shadow(0 0 25px rgba(255,215,0,0.85))"
+                        : "drop-shadow(0 4px 15px rgba(0,0,0,0.8))",
                     }}
                   >
                     {char}
                   </span>
                 </div>
 
-                {/* BOTTOM HALF OF LETTER */}
+                {/* BOTTOM HALF OF GLYPH */}
                 <div
-                  className="absolute inset-0 transition-transform duration-75"
+                  className="absolute inset-0"
                   style={{
-                    transform: `translateY(${splitAmount}px) rotate(${splitRotate}deg)`,
+                    transform: `translateY(${splitY}px) rotate(${splitRot}deg)`,
                     clipPath: "polygon(0 50%, 100% 50%, 100% 100%, 0 100%)",
+                    willChange: "transform",
                   }}
                 >
                   <span
                     className="block text-transparent bg-clip-text"
                     style={{
-                      backgroundImage: isDark
-                        ? "linear-gradient(180deg, #ca8a04 0%, #eab308 30%, #fde047 70%, #713f12 100%)"
-                        : "linear-gradient(180deg, #92400e 0%, #d97706 40%, #b45309 70%, #78350f 100%)",
-                      filter: isImpacted
-                        ? "drop-shadow(0 0 20px rgba(255,215,0,0.8))"
-                        : "drop-shadow(0 4px 15px rgba(0,0,0,0.5))",
+                      backgroundImage:
+                        "linear-gradient(180deg, #ca8a04 0%, #eab308 35%, #fef08a 75%, #713f12 100%)",
+                      filter: isSliced
+                        ? "drop-shadow(0 0 25px rgba(255,215,0,0.85))"
+                        : "drop-shadow(0 4px 15px rgba(0,0,0,0.8))",
                     }}
                   >
                     {char}
                   </span>
                 </div>
 
-                {/* Molten Glow Cut Seam between halves when impacted */}
-                {isImpacted && (
+                {/* Delicate Hairline Cut Seam */}
+                {isSliced && (
                   <div
-                    className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-[#ffd700] rounded-full pointer-events-none z-30"
+                    className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[1px] rounded-full pointer-events-none z-30 bg-[#ffd700]"
                     style={{
-                      boxShadow: "0 0 10px #ffd700, 0 0 20px #f59e0b",
+                      boxShadow: "0 0 8px #ffd700, 0 0 16px #f59e0b",
                     }}
                   />
                 )}
@@ -213,63 +210,48 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
           })}
         </div>
 
-        {/* --- THE GOLDEN BULLET PROJECTILE --- */}
-        {isBulletActive && (
+        {/* --- TINY GLOWING LIGHT PARTICLE (PHOTON SPARK) --- */}
+        {isBeamActive && (
           <div
-            className="absolute top-1/2 -translate-y-1/2 z-40 pointer-events-none"
+            className="absolute top-1/2 -translate-y-1/2 z-40 pointer-events-none flex items-center"
             style={{
-              left: `${bulletXPercent}vw`,
-              transition: "left 0.05s linear",
+              left: `${cuttingHeadXPercent}vw`,
+              willChange: "left",
             }}
           >
-            {/* Supersonic Shockwave Cone trailing behind */}
+            {/* Ultra-Delicate Whisper Tail (fades out smoothly) */}
             <div
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-48 sm:w-64 h-16 sm:h-24 pointer-events-none"
-              style={{
-                background: "linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.15) 60%, rgba(255, 237, 213, 0.5) 100%)",
-                clipPath: "polygon(0 45%, 100% 0, 100% 100%, 0 55%)",
-                filter: "blur(2px)",
-              }}
+              className="w-8 sm:w-14 h-[1px] bg-gradient-to-l from-[#ffffff] via-[#ffd700] to-transparent rounded-full opacity-75"
+              style={{ boxShadow: "0 0 8px #ffd700" }}
             />
 
-            {/* Glowing Laser Tracer Tail */}
-            <div
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-32 sm:w-48 h-1 bg-gradient-to-l from-[#ffffff] via-[#ffd700] to-transparent rounded-full"
-              style={{ boxShadow: "0 0 15px #ffd700, 0 0 30px #f59e0b" }}
-            />
-
-            {/* The Solid Golden Bullet Mesh */}
-            <div className="relative w-10 sm:w-14 h-4 sm:h-5 flex items-center">
-              {/* Bullet Tip (Aerodynamic ogive curve) */}
+            {/* The Tiny Concentrated Light Particle */}
+            <div className="relative flex items-center justify-center -ml-0.5">
+              {/* Core Light Speck */}
               <div
-                className="absolute right-0 w-5 sm:w-7 h-full bg-gradient-to-r from-[#fef08a] to-[#ffffff] rounded-r-full shadow-[0_0_25px_#ffd700]"
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white"
                 style={{
-                  clipPath: "polygon(0 0, 100% 50%, 0 100%)",
+                  boxShadow: "0 0 4px #ffffff, 0 0 10px #ffd700, 0 0 20px #f59e0b",
                 }}
               />
-              {/* Bullet Body (Brass Gold cylinder) */}
+              {/* Delicate Micro Aura */}
               <div
-                className="w-7 sm:w-10 h-full rounded-l-sm bg-gradient-to-b from-[#fde047] via-[#ca8a04] to-[#713f12] border-t border-[#fef08a]"
-                style={{
-                  boxShadow: "0 0 15px rgba(255, 215, 0, 0.8), inset 0 1px 2px #fff",
-                }}
+                className="absolute w-4 h-4 rounded-full bg-amber-400/20 blur-[2px]"
               />
-              {/* Bullet Tip Intense Spark Glow */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white blur-[2px] shadow-[0_0_20px_#ffffff,0_0_40px_#ffd700]" />
             </div>
           </div>
         )}
 
-        {/* Phase 3 Reveal: Title and RCS Tec Credentials (after piercing) */}
+        {/* Phase 3 Reveal: Title & RCS Tec Credentials */}
         <div
           className="absolute bottom-24 sm:bottom-28 text-center px-4 z-20 transition-all duration-700 max-w-xl"
           style={{
-            opacity: progress >= 0.7 ? 1 : 0,
-            transform: `translateY(${progress >= 0.7 ? 0 : 20}px)`,
+            opacity: smoothProgress >= 0.7 ? 1 : 0,
+            transform: `translateY(${smoothProgress >= 0.7 ? 0 : 20}px)`,
           }}
         >
           <div className="text-xs uppercase font-mono tracking-widest text-amber-400 mb-2">
-            ● Projectile Pierce Complete
+            ● Incision Complete &bull; Architect Revealed
           </div>
           <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white mb-2">
             Sameer Khan
@@ -283,24 +265,25 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
           </div>
         </div>
 
-        {/* --- Interactive Golden Control Dock (Bottom Center) --- */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 rounded-full border border-amber-500/30 bg-black/80 backdrop-blur-xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+        {/* --- Minimalist Luxury Golden Control Dock --- */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 rounded-full border border-amber-500/30 bg-black/85 backdrop-blur-2xl shadow-[0_0_30px_rgba(245,158,11,0.25)]">
           <button
-            onClick={fireBullet}
+            onClick={fireBeam}
             disabled={isPlaying}
-            className="flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-400 to-yellow-500 text-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(245,158,11,0.5)] disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-400 to-yellow-500 text-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(245,158,11,0.5)] disabled:opacity-50"
           >
             <Zap className="w-3.5 h-3.5 fill-current" />
-            <span>{isPlaying ? "Firing..." : "⚡ Fire Bullet"}</span>
+            <span>{isPlaying ? "Slicing..." : "⚡ Trigger Slice"}</span>
           </button>
 
           <button
             onClick={() => {
               setManualProgress(0);
+              smoothProgressRef.current = 0;
               setIsPlaying(false);
             }}
             className="p-1.5 rounded-full text-neutral-400 hover:text-amber-400 transition-colors"
-            title="Reset"
+            title="Reset to start"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
@@ -309,12 +292,12 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
 
           {/* Scrubber slider */}
           <div className="hidden sm:flex items-center gap-2">
-            <span className="text-[10px] font-mono text-amber-400">Piercing:</span>
+            <span className="text-[10px] font-mono text-amber-400">Slice:</span>
             <input
               type="range"
               min="0"
               max="100"
-              value={Math.round(progress * 100)}
+              value={Math.round(smoothProgress * 100)}
               onChange={(e) => {
                 setIsPlaying(false);
                 setManualProgress(Number(e.target.value) / 100);
@@ -322,7 +305,7 @@ export default function GoldenBulletShowcase({ isDark }: GoldenBulletShowcasePro
               className="w-24 accent-amber-400 cursor-pointer"
             />
             <span className="text-[11px] font-mono text-amber-300 w-8">
-              {Math.round(progress * 100)}%
+              {Math.round(smoothProgress * 100)}%
             </span>
           </div>
         </div>

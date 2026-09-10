@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useMotionValue, useMotionValueEvent, animate } from "framer-motion";
 
 const BASE_LEN  = 72;    // natural rope length
@@ -32,6 +33,7 @@ function DotRope({ toX, toY, color }: { toX: number; toY: number; color: string 
 }
 
 export default function LampToggle() {
+  const pathname = usePathname();
   const [isDark,   setIsDark]   = useState(false);
   const [toggling, setToggling] = useState(false);
   const [end,      setEnd]      = useState({ x: AX, y: BASE_LEN });
@@ -81,6 +83,8 @@ export default function LampToggle() {
   const knobBg      = isDark ? "#0f172a" : "#f1f5f9";
   const knobBorder  = isDark ? "#38bdf8" : "#94a3b8";
   const glowColor   = isDark ? "rgba(56,189,248,0.7)" : "rgba(251,191,36,0.7)";
+
+  if (pathname === "/other-side") return null;
 
   return (
     <>
