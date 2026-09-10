@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -14,12 +13,10 @@ const navItems = [
 ];
 
 export default function FloatingNav() {
-  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState("");
 
   useEffect(() => {
-    if (pathname !== "/") return;
     const handleScroll = () => {
       // Show after scrolling 80% of viewport height
       setVisible(window.scrollY > window.innerHeight * 0.8);
@@ -44,8 +41,6 @@ export default function FloatingNav() {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  if (pathname !== "/") return null;
 
   return (
     <AnimatePresence>
