@@ -6,14 +6,21 @@ import { motion } from "framer-motion";
 
 export default function CustomCursor() {
   const pathname = usePathname();
-  const isGoldenPage = pathname === "/other-side";
+  const is3DPage = pathname === "/other-side";
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      setIsMoving(true);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setIsMoving(false), 2000);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -32,73 +39,93 @@ export default function CustomCursor() {
       }
     };
 
+    const handleMouseDown = () => setIsMouseDown(true);
+    const handleMouseUp = () => setIsMouseDown(false);
+
     window.addEventListener("mousemove", updateMousePosition);
     window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      clearTimeout(timeout);
     };
   }, []);
 
-  // Colors based on page theme
-  const ringBorder = isGoldenPage
-    ? isHovering
-      ? "1.5px solid rgba(255, 215, 0, 0.95)"
-      : "1.5px solid rgba(251, 191, 36, 0.8)"
-    : isHovering
-      ? "1px solid rgba(0,212,255,0.6)"
-      : "1.5px solid rgba(0,212,255,0.7)";
+  // ── Ultra-Sleek Cursor for 3D Canvas Scrubbing Page ──────────────────────────
+  if (is3DPage) {
+    return (
+      <>
+        {/* Sleek Outer Ring / Scrub Pill */}
+        <motion.div
+          className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center mix-blend-difference"
+          animate={{
+            x: mousePosition.x - (isHovering ? 24 : isMouseDown ? 16 : 20),
+            y: mousePosition.y - (isHovering ? 24 : isMouseDown ? 16 : 20),
+            width: isHovering ? 48 : isMouseDown ? 32 : 40,
+            height: isHovering ? 48 : isMouseDown ? 32 : 40,
+            scale: isMouseDown ? 0.85 : isHovering ? 1.25 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 550, damping: 32, mass: 0.4 }}
+        >
+          <div
+            className={`w-full h-full rounded-full transition-all duration-300 flex items-center justify-center ${
+              isHovering
+                ? "border-2 border-white bg-white/20 shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+                : "border border-white/70 bg-white/5 backdrop-blur-[1px]"
+            }`}
+          >
+            {/* Subtle Horizontal Scrub Indicator when on 3D Canvas */}
+            {!isHovering && !isMouseDown && (
+              <div className="flex items-center gap-1 text-[8px] font-mono text-white opacity-60 tracking-tighter select-none">
+                <span>‹</span>
+                <span>›</span>
+              </div>
+            )}
+          </div>
+        </motion.div>
 
-  const ringBg = isGoldenPage
-    ? isHovering
-      ? "rgba(255, 215, 0, 0.18)"
-      : "transparent"
-    : isHovering
-      ? "rgba(0,212,255,0.15)"
-      : "transparent";
+        {/* Precision Center Dot */}
+        <motion.div
+          className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full pointer-events-none z-[9999] bg-white mix-blend-difference"
+          animate={{
+            x: mousePosition.x - 3,
+            y: mousePosition.y - 3,
+            scale: isHovering ? 0 : isMouseDown ? 1.5 : 1,
+            opacity: isHovering ? 0 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 850, damping: 38 }}
+        />
+      </>
+    );
+  }
 
-  const ringShadow = isGoldenPage
-    ? isHovering
-      ? "0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 12px rgba(255, 215, 0, 0.25)"
-      : "0 0 10px rgba(251, 191, 36, 0.5)"
-    : isHovering
-      ? "0 0 15px rgba(0,212,255,0.3), inset 0 0 10px rgba(0,212,255,0.1)"
-      : "0 0 8px rgba(0,212,255,0.4)";
-
-  const dotBg = isGoldenPage ? "#ffd700" : "var(--color-primary)";
-  const dotShadow = isGoldenPage
-    ? "0 0 10px rgba(255, 215, 0, 1)"
-    : "0 0 6px rgba(0,212,255,0.8)";
-
-  const spot1 = isGoldenPage
-    ? `radial-gradient(450px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(251, 191, 36, 0.14), transparent 45%)`
-    : `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.12), transparent 40%)`;
-
-  const spot2 = isGoldenPage
-    ? `radial-gradient(280px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(245, 158, 11, 0.08), transparent 40%)`
-    : `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(139, 92, 246, 0.08), transparent 40%)`;
-
+  // ── Default Clean Cursor for Main Homepage ──────────────────────────────────
   return (
     <>
-      {/* Custom cursor ring */}
+      {/* Outer Ring */}
       <motion.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999]"
         animate={{
-          x: mousePosition.x - (isHovering ? 22 : 12),
-          y: mousePosition.y - (isHovering ? 22 : 12),
-          width: isHovering ? 44 : 24,
-          height: isHovering ? 44 : 24,
+          x: mousePosition.x - (isHovering ? 20 : 12),
+          y: mousePosition.y - (isHovering ? 20 : 12),
+          width: isHovering ? 40 : 24,
+          height: isHovering ? 40 : 24,
+          scale: isMouseDown ? 0.9 : 1,
         }}
         style={{
-          background: ringBg,
-          border: ringBorder,
-          boxShadow: ringShadow,
+          background: isHovering ? "rgba(0,212,255,0.12)" : "transparent",
+          border: isHovering ? "1px solid rgba(0,212,255,0.7)" : "1.5px solid rgba(0,212,255,0.5)",
+          boxShadow: isHovering ? "0 0 15px rgba(0,212,255,0.25)" : "0 0 8px rgba(0,212,255,0.2)",
         }}
         transition={{ type: "spring", stiffness: 500, damping: 30, mass: 0.5 }}
       />
 
-      {/* Cursor dot */}
+      {/* Inner Dot */}
       <motion.div
         className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full pointer-events-none z-[9999]"
         animate={{
@@ -106,19 +133,16 @@ export default function CustomCursor() {
           y: mousePosition.y - 3,
           opacity: isHovering ? 0 : 1,
         }}
-        style={{ background: dotBg, boxShadow: dotShadow }}
+        style={{ background: "var(--color-primary)", boxShadow: "0 0 6px rgba(0,212,255,0.8)" }}
         transition={{ type: "spring", stiffness: 800, damping: 35 }}
       />
 
-      {/* Flashlight spotlights */}
+      {/* Flashlight Spotlight on Main Page only */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-10 mix-blend-screen"
-        animate={{ background: spot1 }}
-        transition={{ type: "tween", ease: "linear", duration: 0.1 }}
-      />
-      <motion.div
-        className="fixed inset-0 pointer-events-none z-20 mix-blend-overlay"
-        animate={{ background: spot2 }}
+        animate={{
+          background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.08), transparent 40%)`,
+        }}
         transition={{ type: "tween", ease: "linear", duration: 0.1 }}
       />
     </>
