@@ -56,52 +56,9 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // ── Ultra-Sleek Cursor for 3D Canvas Scrubbing Page ──────────────────────────
+  // On 3D page, use native high-performance cursor to avoid GPU readback overhead & lag
   if (is3DPage) {
-    return (
-      <>
-        {/* Sleek Outer Ring / Scrub Pill */}
-        <motion.div
-          className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center mix-blend-difference"
-          animate={{
-            x: mousePosition.x - (isHovering ? 24 : isMouseDown ? 16 : 20),
-            y: mousePosition.y - (isHovering ? 24 : isMouseDown ? 16 : 20),
-            width: isHovering ? 48 : isMouseDown ? 32 : 40,
-            height: isHovering ? 48 : isMouseDown ? 32 : 40,
-            scale: isMouseDown ? 0.85 : isHovering ? 1.25 : 1,
-          }}
-          transition={{ type: "spring", stiffness: 550, damping: 32, mass: 0.4 }}
-        >
-          <div
-            className={`w-full h-full rounded-full transition-all duration-300 flex items-center justify-center ${
-              isHovering
-                ? "border-2 border-white bg-white/20 shadow-[0_0_20px_rgba(255,255,255,0.8)]"
-                : "border border-white/70 bg-white/5 backdrop-blur-[1px]"
-            }`}
-          >
-            {/* Subtle Horizontal Scrub Indicator when on 3D Canvas */}
-            {!isHovering && !isMouseDown && (
-              <div className="flex items-center gap-1 text-[8px] font-mono text-white opacity-60 tracking-tighter select-none">
-                <span>‹</span>
-                <span>›</span>
-              </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Precision Center Dot */}
-        <motion.div
-          className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full pointer-events-none z-[9999] bg-white mix-blend-difference"
-          animate={{
-            x: mousePosition.x - 3,
-            y: mousePosition.y - 3,
-            scale: isHovering ? 0 : isMouseDown ? 1.5 : 1,
-            opacity: isHovering ? 0 : 1,
-          }}
-          transition={{ type: "spring", stiffness: 850, damping: 38 }}
-        />
-      </>
-    );
+    return null;
   }
 
   // ── Default Clean Cursor for Main Homepage ──────────────────────────────────
