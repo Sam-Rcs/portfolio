@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldAlert, Home } from "lucide-react";
+import { ShieldAlert, Home, Gamepad2 } from "lucide-react";
 import CanvasScrubHero from "@/components/CanvasScrubHero";
 
 export default function OtherSidePage() {
@@ -25,24 +25,32 @@ export default function OtherSidePage() {
           </h3>
 
           <p className="text-sm font-mono text-neutral-400 max-w-md mx-auto leading-relaxed">
-            Ready to head back to the clean, polite, recruiter-friendly main portfolio?
+            Ready to head back to the clean, polite main portfolio — or drive an RC car across my physics playground?
           </p>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full font-bold text-sm tracking-wide text-black bg-amber-400 hover:bg-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.4)] hover:scale-105 active:scale-95 transition-all duration-300"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-bold text-sm tracking-wide text-black bg-amber-400 hover:bg-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.4)] hover:scale-105 active:scale-95 transition-all duration-300"
             >
               <Home className="w-4 h-4" />
-              <span>Return to Main Portfolio</span>
+              <span>Main Portfolio</span>
+            </Link>
+
+            <Link
+              href="/game"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs text-amber-300 border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 transition-all hover:scale-105"
+            >
+              <Gamepad2 className="w-4 h-4 text-amber-400" />
+              <span>Play 3D Physics Game</span>
             </Link>
 
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs text-rose-300 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full font-mono text-xs text-rose-300 border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 transition-all"
             >
               <ShieldAlert className="w-3.5 h-3.5" />
-              <span>Emergency Escape to Reality</span>
+              <span>Emergency Escape</span>
             </Link>
           </div>
         </div>

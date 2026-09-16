@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function CustomCursor() {
   const pathname = usePathname();
-  const is3DPage = pathname === "/other-side";
+  const is3DPage = pathname === "/other-side" || pathname === "/game";
 
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
