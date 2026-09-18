@@ -34,7 +34,15 @@ export default function OtherSidePage() {
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm tracking-wide text-black bg-amber-400 hover:bg-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.4)] hover:scale-105 active:scale-95 transition-all duration-300"
             >
               <Home className="w-4 h-4" />
-              <span>Return to Main Portfolio</span>
+              <span>Main Portfolio</span>
+            </Link>
+
+            <Link
+              href="/garden"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs text-pink-300 border border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20 transition-all hover:scale-105"
+            >
+              <span>🌸</span>
+              <span>Peaceful Zen Garden</span>
             </Link>
 
             <Link

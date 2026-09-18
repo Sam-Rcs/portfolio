@@ -23,21 +23,31 @@ export default function OtherSideBadge() {
         </div>
 
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
-          Step Onto The Other Side
+          Explore My Interactive Dimensions
         </h2>
 
         <p className="max-w-xl mx-auto text-sm sm:text-base text-slate-300 font-mono mb-8 leading-relaxed">
-          192-frame interactive 3D scrubbing workspace. Zero AI hallucinations, buttery smooth cursor &amp; scroll navigation, and real production projects.
+          Choose your journey: Take a peaceful stroll through a blooming Japanese Zen Garden with ambient music, or scrub through a high-definition 192-frame 3D cinematic workspace.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Zen Garden Portal */}
+          <Link
+            href="/garden"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-pink-400 via-rose-400 to-amber-300 hover:from-white hover:to-pink-200 text-black font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_0_35px_rgba(244,114,182,0.4)] hover:scale-105 active:scale-95"
+          >
+            <span>🌸</span>
+            <span>Enter Japanese Zen Garden</span>
+            <ChevronRight className="w-4 h-4 text-black" />
+          </Link>
+
+          {/* 3D Cinematic Workspace Portal */}
           <Link
             href="/other-side"
-            className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-300 hover:from-white hover:to-amber-200 text-black font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_0_35px_rgba(245,158,11,0.4)] hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white font-medium text-sm tracking-wide transition-all duration-300 hover:scale-105 active:scale-95"
           >
-            <Film className="w-4 h-4 text-black" />
-            <span>Launch 3D Cinematic Workspace</span>
-            <ChevronRight className="w-4 h-4" />
+            <Film className="w-4 h-4 text-cyan-400" />
+            <span>3D Scrubbing Workspace</span>
           </Link>
         </div>
       </motion.div>
