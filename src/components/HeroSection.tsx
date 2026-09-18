@@ -168,9 +168,10 @@ export default function HeroSection() {
           {/* Primary CTA */}
           <a
             href="#projects"
-            className="neu-btn px-8 py-4 rounded-2xl text-[var(--color-primary)] font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_20px_rgba(37,99,235,0.18)] transition-all duration-300 w-full md:w-auto text-center"
+            className="neu-btn px-8 py-4 rounded-2xl text-[var(--color-primary)] font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_20px_rgba(37,99,235,0.18)] transition-all duration-300 w-full md:w-auto text-center flex items-center justify-center gap-2"
           >
-            Inspect my questionable decisions
+            <span>Explore Featured Projects</span>
+            <span className="text-xs font-mono">↓</span>
           </a>
 
           <div className="flex gap-4 items-center">

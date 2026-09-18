@@ -12,11 +12,11 @@ export default function Home() {
     <main className="bg-[var(--color-background)] text-[var(--color-foreground)] min-h-screen font-sans transition-colors duration-500">
       <HeroSection />
       <AboutSection />
+      <ProjectsSection />
       <ArchitectureSection />
       <SkillsSection />
       <ExperienceSection />
       <EducationSection />
-      <ProjectsSection />
       <OtherSideBadge />
     </main>
   );
