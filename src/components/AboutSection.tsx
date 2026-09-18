@@ -59,6 +59,26 @@ export default function AboutSection() {
             </p>
           </div>
 
+          {/* Developer Reality Check */}
+          <div className="mt-8 p-5 rounded-2xl neu-inset text-xs font-mono space-y-2 relative z-10 border border-black/5 dark:border-white/5">
+            <div className="flex items-center justify-between gap-2 text-[var(--color-primary)] font-bold mb-2">
+              <div className="flex items-center gap-2">
+                <span>💡</span>
+                <span className="tracking-wider">DEVELOPER REALITY CHECK</span>
+              </div>
+              <span className="text-[10px] text-[var(--color-muted)] font-normal hidden sm:inline">(Confidential engineering truths)</span>
+            </div>
+            <p className="text-[var(--color-foreground)] leading-relaxed">
+              <span className="text-[var(--color-primary)] font-semibold">Bug Protocol:</span> If it works on localhost, the bug is legally classified as a client network anomaly.
+            </p>
+            <p className="text-[var(--color-foreground)] leading-relaxed">
+              <span className="text-[var(--color-secondary)] font-semibold">Refactoring Rule:</span> Never question a 400-line function that has been running untouched since 2021.
+            </p>
+            <p className="text-[var(--color-foreground)] leading-relaxed">
+              <span className="text-emerald-500 font-semibold">Energy Conversion:</span> 3 espressos = 1 microservice. 0 espressos = <code>Cannot read properties of undefined</code>.
+            </p>
+          </div>
+
           {/* Signature line */}
           <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-3">
             <div
@@ -72,7 +92,7 @@ export default function AboutSection() {
             </div>
             <div>
               <p className="text-[var(--color-foreground)] text-sm font-semibold">Sameer Khan</p>
-              <p className="text-[var(--color-muted)] text-xs font-mono">Full Stack Developer · RCS Tec</p>
+              <p className="text-[var(--color-muted)] text-xs font-mono">Full Stack Developer · RCS Tec · 0 Uncommitted Merge Conflicts</p>
             </div>
           </div>
         </motion.div>

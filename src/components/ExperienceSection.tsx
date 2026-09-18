@@ -90,6 +90,26 @@ export default function ExperienceSection() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Funny Operational KPI Grid */}
+                <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+                  <div className="neu-inset p-3 rounded-xl">
+                    <span className="block text-base font-black text-[var(--color-primary)]">99.98%</span>
+                    <span className="text-[9px] text-[var(--color-muted)] uppercase">Prod Uptime</span>
+                  </div>
+                  <div className="neu-inset p-3 rounded-xl">
+                    <span className="block text-base font-black text-amber-500">3.5 L</span>
+                    <span className="text-[9px] text-[var(--color-muted)] uppercase">Coffee / Day</span>
+                  </div>
+                  <div className="neu-inset p-3 rounded-xl">
+                    <span className="block text-base font-black text-violet-500">47</span>
+                    <span className="text-[9px] text-[var(--color-muted)] uppercase">Tabs Open</span>
+                  </div>
+                  <div className="neu-inset p-3 rounded-xl">
+                    <span className="block text-base font-black text-rose-500">0</span>
+                    <span className="text-[9px] text-[var(--color-muted)] uppercase">Prod Tests on Fri</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

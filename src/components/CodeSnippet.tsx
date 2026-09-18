@@ -16,6 +16,7 @@ const CODE_LINES = [
   { text: "  available: true, // 👈",    color: "text-violet-500" },
   { text: "  coffee: Infinity,",          color: "text-amber-500" },
   { text: "  bugs: 0, // allegedly",      color: "text-slate-400" },
+  { text: '  gitPushForce: "never (unless?)",', color: "text-rose-500" },
   { text: "};",                           color: "text-slate-700" },
 ];
 

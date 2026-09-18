@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 
 export default function CustomCursor() {
   const pathname = usePathname();
-  const is3DPage = pathname === "/other-side" || pathname === "/game";
 
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
@@ -56,12 +55,12 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // On 3D page, use native high-performance cursor to avoid GPU readback overhead & lag
-  if (is3DPage) {
+  // If mouse has never moved yet (initial state), don't render off-screen
+  if (mousePosition.x < 0 && mousePosition.y < 0) {
     return null;
   }
 
-  // ── Default Clean Cursor for Main Homepage ──────────────────────────────────
+  // ── High-Visibility Glowing Pointer for Portfolio & 3D Workspace ────────────
   return (
     <>
       {/* Outer Ring */}
@@ -95,13 +94,15 @@ export default function CustomCursor() {
       />
 
       {/* Flashlight Spotlight on Main Page only */}
-      <motion.div
-        className="fixed inset-0 pointer-events-none z-10 mix-blend-screen"
-        animate={{
-          background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.08), transparent 40%)`,
-        }}
-        transition={{ type: "tween", ease: "linear", duration: 0.1 }}
-      />
+      {pathname === "/" && (
+        <motion.div
+          className="fixed inset-0 pointer-events-none z-10 mix-blend-screen"
+          animate={{
+            background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.08), transparent 40%)`,
+          }}
+          transition={{ type: "tween", ease: "linear", duration: 0.1 }}
+        />
+      )}
     </>
   );
 }

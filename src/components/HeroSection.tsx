@@ -143,14 +143,20 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Tagline */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-base md:text-lg text-[var(--color-muted)] mb-12 font-light max-w-2xl mx-auto leading-relaxed tracking-wide"
+          className="mb-10 text-center"
         >
-          Full Stack Developer · Scalable Systems · Real-time Architecture
-        </motion.p>
+          <p className="text-base md:text-lg text-[var(--color-muted)] font-light max-w-2xl mx-auto leading-relaxed tracking-wide mb-3">
+            Full Stack Developer · Scalable Systems · Turning caffeine into NullPointerExceptions since 2020
+          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neu-inset text-[11px] font-mono text-[var(--color-muted)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>0 prod incidents today (allegedly) · Localhost is thriving</span>
+          </div>
+        </motion.div>
 
         {/* CTA Buttons */}
         <motion.div

@@ -4,29 +4,54 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function EasterEggs() {
-  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // Console Message Easter Egg
     console.log(
-      "%c If you're reading this, congratulations. The API responded. – Sam",
-      "color: #00f0ff; font-size: 14px; font-weight: bold; background: #050505; padding: 10px; border-radius: 5px; border: 1px solid #00f0ff;"
+      "%c🚀 Welcome to Sameer's DevTools console! If you're reading this, you're either an awesome developer or a recruiter with F12 superpowers. Respect! 🤝",
+      "color: #00f0ff; font-size: 13px; font-weight: bold; background: #080914; padding: 8px 12px; border-radius: 6px; border: 1px solid #00f0ff;"
+    );
+    console.log(
+      "%c💡 Pro-tip: Try typing hire() or coffee() in this console.",
+      "color: #10b981; font-size: 12px; font-style: italic;"
     );
 
-    // Konami Code / Debug sequence Easter Egg
-    let inputSequence = "";
-    const secretCode = "debug";
+    // Global Console Functions
+    if (typeof window !== "undefined") {
+      (window as unknown as { hire: () => string; coffee: () => string }).hire = () => {
+        return "🎉 OUTSTANDING DECISION! Send an email to sameer6306khan@gmail.com with subject: 'You are hired + unlimited coffee stipend'!";
+      };
+      (window as unknown as { hire: () => string; coffee: () => string }).coffee = () => {
+        return "☕ Caffeine buffer replenished to 100%. Ready to architect 4 high-throughput microservices without breaking a sweat.";
+      };
+    }
+
+    // Keyboard Easter Eggs
+    let buffer = "";
+    const secrets: { [key: string]: string } = {
+      debug: "🐛 Debug mode engaged: All bugs have been successfully renamed to 'features'.",
+      coffee: "☕ *Coffee deployed*: Developer productivity boosted by 420%.",
+      hire: "💼 Offer accepted! Preparing to commit high-quality code to your repo.",
+      bugs: "🦗 0 bugs found in memory. (Please do not check the legacy microservice).",
+    };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      inputSequence += e.key.toLowerCase();
-      if (inputSequence.length > secretCode.length) {
-        inputSequence = inputSequence.slice(1);
+      // Ignore if typing in an input
+      if ((e.target as HTMLElement)?.tagName === "INPUT" || (e.target as HTMLElement)?.tagName === "TEXTAREA") {
+        return;
       }
-      
-      if (inputSequence === secretCode) {
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 5000); // Hide after 5s
-        inputSequence = ""; // reset
+
+      buffer += e.key.toLowerCase();
+      if (buffer.length > 10) buffer = buffer.slice(-10);
+
+      for (const [code, msg] of Object.entries(secrets)) {
+        if (buffer.endsWith(code)) {
+          setToastMessage(msg);
+          setTimeout(() => setToastMessage(null), 5000);
+          buffer = "";
+          break;
+        }
       }
     };
 
@@ -36,15 +61,16 @@ export default function EasterEggs() {
 
   return (
     <AnimatePresence>
-      {showToast && (
+      {toastMessage && (
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] glass-panel px-6 py-3 rounded-full border border-[var(--color-primary)] shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 40, scale: 0.9 }}
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[150] px-6 py-3.5 rounded-full neu-raised border border-[var(--color-primary)]/40 shadow-[0_0_25px_rgba(0,240,255,0.25)] bg-[var(--color-background)]/90 backdrop-blur-xl"
         >
-          <p className="font-mono text-sm text-[var(--color-primary)] whitespace-nowrap">
-            You weren't supposed to find this. Anyway… respect.
+          <p className="font-mono text-xs sm:text-sm text-[var(--color-primary)] whitespace-nowrap flex items-center gap-2">
+            <span>✨</span>
+            <span>{toastMessage}</span>
           </p>
         </motion.div>
       )}

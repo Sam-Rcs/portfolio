@@ -1,24 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Database, Server, Layout, GitBranch, Terminal } from "lucide-react";
+import { Code, Database, Server, Layout, GitBranch, Terminal, Container, HelpCircle } from "lucide-react";
 import SectionBanner from "./SectionBanner";
 
 const skills = [
-  { name: "Java",         icon: <Terminal className="w-6 h-6" />,  tooltip: "Brewed with unreasonable amounts of coffee." },
-  { name: "Spring Boot",  icon: <Server className="w-6 h-6" />,    tooltip: "Enterprise ready. Debugging: never." },
-  { name: "Golang",       icon: <Terminal className="w-6 h-6" />,  tooltip: "Pointers are fun, until they point to null." },
-  { name: "Node.js",      icon: <Server className="w-6 h-6" />,    tooltip: null },
-  { name: "React",        icon: <Layout className="w-6 h-6" />,    tooltip: null },
-  { name: "Android",      icon: <Code className="w-6 h-6" />,      tooltip: "Kotlin & Java both." },
-  { name: "iOS",          icon: <Code className="w-6 h-6" />,      tooltip: "Swift. Xcode build times: not swift." },
-  { name: "PostgreSQL",   icon: <Database className="w-6 h-6" />,  tooltip: "SELECT * FROM brain WHERE coffee > 0;" },
-  { name: "MySQL",        icon: <Database className="w-6 h-6" />,  tooltip: "SELECT * FROM brain WHERE coffee > 0;" },
-  { name: "MongoDB",      icon: <Database className="w-6 h-6" />,  tooltip: null },
-  { name: "REST APIs",    icon: <Code className="w-6 h-6" />,      tooltip: "JSON is my official love language." },
-  { name: "WebSockets",   icon: <Terminal className="w-6 h-6" />,  tooltip: null },
-  { name: "Microservices",icon: <Server className="w-6 h-6" />,    tooltip: "Turning one big problem into 20 small, distributed problems." },
-  { name: "Git",          icon: <GitBranch className="w-6 h-6" />, tooltip: "git commit -m 'fix: fingers crossed'" },
+  { name: "Java",         icon: <Terminal className="w-6 h-6" />,  tooltip: "☕ 10,000 lines of boilerplate and AbstractSingletonProxyFactoryBean." },
+  { name: "Spring Boot",  icon: <Server className="w-6 h-6" />,    tooltip: "⚡ Boots in 45s, consumes 2GB RAM to return 'Hello World'." },
+  { name: "Golang",       icon: <Terminal className="w-6 h-6" />,  tooltip: "🚀 if err != nil { panic('why me') } repeated 4,000x." },
+  { name: "Node.js",      icon: <Server className="w-6 h-6" />,    tooltip: "🧵 Single-threaded, just like my attention span during standup." },
+  { name: "React",        icon: <Layout className="w-6 h-6" />,    tooltip: "⚛️ 'Have you tried adding another useEffect?' (Infinite loop speedrun)." },
+  { name: "Android",      icon: <Code className="w-6 h-6" />,      tooltip: "📱 Gradle build started yesterday. Expected finish: Thursday." },
+  { name: "iOS",          icon: <Code className="w-6 h-6" />,      tooltip: "🍎 Swift is fast. Xcode indexing turns my MacBook into an induction stove." },
+  { name: "PostgreSQL",   icon: <Database className="w-6 h-6" />,  tooltip: "🐘 SELECT * FROM brain WHERE coffee > 0; (0 rows returned)." },
+  { name: "MySQL",        icon: <Database className="w-6 h-6" />,  tooltip: "💾 Executed DELETE without WHERE clause once. Still traumatized." },
+  { name: "MongoDB",      icon: <Database className="w-6 h-6" />,  tooltip: "🍃 Schemaless! Because schema commitments are too scary." },
+  { name: "REST APIs",    icon: <Code className="w-6 h-6" />,      tooltip: "🌐 Returns HTTP 200 OK with body: { error: 'everything is on fire' }." },
+  { name: "WebSockets",   icon: <Terminal className="w-6 h-6" />,  tooltip: "🔌 Persistent real-time connection. Emotionally unavailable though." },
+  { name: "Microservices",icon: <Server className="w-6 h-6" />,    tooltip: "🧩 Converted 1 manageable bug into 30 distributed network timeouts." },
+  { name: "Git",          icon: <GitBranch className="w-6 h-6" />, tooltip: "🔀 git commit -m 'fix: please work god' && git push --force" },
+  { name: "Docker",       icon: <Container className="w-6 h-6" />, tooltip: "🐳 'It works on my machine!' 'Fine, we will ship your machine.'" },
+  { name: "StackOverflow",icon: <HelpCircle className="w-6 h-6" />,tooltip: "📋 Certified Senior Ctrl+C / Ctrl+V Knowledge Extraction Specialist." },
 ];
 
 export default function SkillsSection() {
@@ -32,7 +34,7 @@ export default function SkillsSection() {
           title="TECHNICAL"
           highlight="ARSENAL"
           gradient="from-violet-500 to-blue-500"
-          description="14 technologies I use to ship real products."
+          description="Hover over each card for the honest developer reality behind the buzzwords."
         />
 
         {/* Skill Cards Grid */}

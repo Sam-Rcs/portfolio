@@ -9,6 +9,7 @@ type ProjectType = {
   title: string;
   date: string;
   description: string;
+  humor: string;
   tech: string[];
   details: {
     frontend?: string[];
@@ -23,6 +24,7 @@ const projects: ProjectType[] = [
     title: "Coach Konnects",
     date: "Independent",
     description: "Built an independent, full-stack coaching platform. Designed and developed the complete architecture encompassing Web applications.",
+    humor: "Passwordless WebAuthn: Because users forget passwords 10 minutes after sign-up.",
     tech: ["Spring Boot", "React", "WebAuthn"],
     details: { frontend: ["React (Web)"], backend: ["Spring Boot", "WebAuthn API"], database: ["PostgreSQL"] }
   },
@@ -30,6 +32,7 @@ const projects: ProjectType[] = [
     title: "Amagi Payment System",
     date: "Oct 2025 – Present",
     description: "Built payment platform with secure transactions and API integrations. Implemented real-time chat using WebSockets and created analytics dashboards.",
+    humor: "All transactions are strictly ACID compliant. Developer sanity during launch: undetermined.",
     tech: ["Spring Boot", "React", "WebSockets"],
     details: { frontend: ["React.js", "TailwindCSS"], backend: ["Spring Boot", "WebSockets"], database: ["MySQL", "Redis"] }
   },
@@ -37,6 +40,7 @@ const projects: ProjectType[] = [
     title: "NT Nation Trust Bank",
     date: "Oct 2025 – Present",
     description: "Developed banking modules with approval workflows. Implemented RBAC and secure APIs, improving legacy systems with modern architecture.",
+    humor: "Rigid approval chains: Even accidental typos require two senior vice presidents to sign off.",
     tech: ["Java", "Spring Boot", "Microservices"],
     details: { frontend: ["Internal Dashboards"], backend: ["Java", "Spring Boot", "Microservices"], database: ["Oracle DB"] }
   },
@@ -44,6 +48,7 @@ const projects: ProjectType[] = [
     title: "Hotel Management App",
     date: "Full Stack",
     description: "Developed a comprehensive hotel management application supporting cross-platform usage across Web, Android, and iOS devices.",
+    humor: "Tri-platform sync: Room double-booking officially dropped from 'daily riot' to zero.",
     tech: ["Node.js", "Swift", "Kotlin"],
     details: { frontend: ["React"], mobile: ["Swift (iOS)", "Kotlin (Android)"], backend: ["Node.js", "Express.js"], database: ["MongoDB"] }
   },
@@ -51,6 +56,7 @@ const projects: ProjectType[] = [
     title: "Warehouse Software",
     date: "Logistics",
     description: "Built an application for managing drivers and tracking assets efficiently across warehouses and transit routes.",
+    humor: "Optimized route algorithms so aggressively that trucks arrive before the boxes are packed.",
     tech: ["Spring Boot", "MySQL", "React"],
     details: { frontend: ["React.js"], backend: ["Spring Boot"], database: ["MySQL"] }
   },
@@ -58,6 +64,7 @@ const projects: ProjectType[] = [
     title: "IG Tool (Multi-Module)",
     date: "Team Lead",
     description: "Developed invoice, asset, and GRN modules. Led the development team and significantly improved operational efficiency.",
+    humor: "Decommissioned 47 fragile Excel spreadsheets that had been secretly running the company.",
     tech: ["Node.js", "React", "MySQL"],
     details: { frontend: ["React"], backend: ["Node.js"], database: ["MySQL"] }
   },
@@ -65,6 +72,7 @@ const projects: ProjectType[] = [
     title: "DHL (AMS / SIMS)",
     date: "Full Stack",
     description: "Enhanced asset management systems and fixed critical issues to streamline operations for DHL.",
+    humor: "Tracks packages moving across 4 continents. Still cannot track where my weekends go.",
     tech: ["Spring Boot", "Java", "React"],
     details: { frontend: ["React"], backend: ["Java", "Spring Boot"], database: ["Oracle DB"] }
   },
@@ -72,6 +80,7 @@ const projects: ProjectType[] = [
     title: "Zomato Hyperpure",
     date: "Full Stack",
     description: "Built and optimized procurement features for the B2B restaurant supply platform.",
+    humor: "Successfully routed millions of potato and onion orders without a single stack trace.",
     tech: ["Spring Boot", "React"],
     details: { frontend: ["React"], backend: ["Spring Boot"], database: ["PostgreSQL"] }
   },
@@ -79,6 +88,7 @@ const projects: ProjectType[] = [
     title: "Expense Module",
     date: "Mar 2025 – Present",
     description: "Developing an internal financial tracking module to monitor corporate expenses.",
+    humor: "Tracks corporate expenses with extreme precision. No, late-night Red Bull is not tax-deductible.",
     tech: ["Java", "Spring Boot", "React"],
     details: { frontend: ["React"], backend: ["Java", "Spring Boot"], database: ["MySQL"] }
   }
@@ -226,9 +236,13 @@ export default function ProjectsSection() {
                         {project.date}
                       </span>
                     </div>
-                    <p className="text-[var(--color-muted)] text-sm leading-relaxed mb-4">
+                    <p className="text-[var(--color-muted)] text-sm leading-relaxed mb-3">
                       {project.description}
                     </p>
+                    <div className="mb-4 py-1 px-2.5 rounded-lg neu-inset inline-flex items-center gap-1.5 text-[11px] font-mono text-[var(--color-muted)] border border-black/5 dark:border-white/5">
+                      <span className="text-amber-500">💬</span>
+                      <span className="italic">{project.humor}</span>
+                    </div>
                     <div className="flex items-center gap-2">
                       <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${isExpanded ? "bg-[var(--color-primary)]" : "bg-[var(--color-muted)]"}`}
                         style={{ boxShadow: isExpanded ? "0 0 8px rgba(0,212,255,0.8)" : "none" }}
